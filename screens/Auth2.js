@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import { createUserWithEmailAndPassword  } from 'firebase/auth';
 import { auth } from '../firebase/Config';
 import Global,{ colors } from '../styles/Global';
@@ -44,22 +44,30 @@ const Auth2 = () => {
   return (
     <View style={Global.container}>
     <View>
-    <Text style={Global.titulo} >Ingrese:</Text>
-    <TextInput
+    <Image source={require("./../assets/appetitologo.png")} style={{
+          height: 200,
+          width: 250,
+          borderRadius: 15,
+          marginBottom: 100
+
+        }}
+        resizeMode="cover"/>
+    <Text style={Global.textBlack} >Ingrese:</Text>
+    <TextInput style={Global.btnPlaceHolder}
                 
                 value={email}
                 onChangeText={setEmail}
-                placeholder="Ingrese email"
-            ></TextInput>
+                placeholder="Correo Electronico"
+                placeholderTextColor='#c7c6c6'            ></TextInput>
              <TextInput
-                
+                style={Global.btnPlaceHolder}
                 secureTextEntry={true}
                 value={password}
                 onChangeText={setPassword}
-                placeholder="Ingrese password"
-            ></TextInput>
-           <TouchableOpacity onPress={handleSignUp}>
-                <Text>Siguiente</Text>
+                placeholder="Contraseña"
+                placeholderTextColor='#c7c6c6'            ></TextInput>
+           <TouchableOpacity style={Global.btn} onPress={handleSignUp}>
+                <Text style={Global.textBlack}>Siguiente</Text>
             </TouchableOpacity>
            
        

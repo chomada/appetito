@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { createUserWithEmailAndPassword,signInWithEmailAndPassword  } from 'firebase/auth';
+import { StyleSheet, Text, Image, TouchableOpacity, View } from 'react-native';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/Config';
-import Global,{ colors } from '../styles/Global';
+import Global, { colors } from '../styles/Global';
 
-const EstiloDePrueba= StyleSheet.create({
-    prueba:{
+const EstiloDePrueba = StyleSheet.create({
+    prueba: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -14,7 +14,7 @@ const EstiloDePrueba= StyleSheet.create({
 
 });
 
-const Auth = ({navigation,route}) => {
+const Auth = ({ navigation, route }) => {
 
     const handleIniciar = () => {
 
@@ -24,17 +24,33 @@ const Auth = ({navigation,route}) => {
 
         navigation.navigate('Auth2')
     }
-  return (
-    <View style={Global.container}>
-        <View>
-            <Text style={Global.titulo} onPress={() => handleIniciar()}>Iniciar Sesión</Text>
-            <Text >Primera vez que ingresas?</Text>
-            <Text style={Global.titulo} onPress={() => handleRegistrate()}>Registrate</Text>
+    return (
+        <View style={Global.container}>
+            <View>
+                <Image source={require("./../assets/appetitologo.png")} style={{
+                    height: 200,
+                    width: 250,
+                    borderRadius: 15,
+                    marginBottom: 100
+
+                }}
+                    resizeMode="cover" />
+                <TouchableOpacity style={Global.btn} onPress={() => handleIniciar()}>
+                    <Text style={Global.textBlack} >Iniciar sesión</Text>
+                </TouchableOpacity>
+
+                <Text style={Global.textBlack} textBlack>¿Primera vez que ingresás?</Text>
+
+                <TouchableOpacity style={Global.btn} onPress={() => handleRegistrate()}>
+                    <Text style={Global.textBlack} >Registrate</Text>
+                </TouchableOpacity>
+
+
+
+            </View>
 
         </View>
-    
-    </View>
-  )
+    )
 }
 
 export default Auth

@@ -15,7 +15,16 @@ const BuscarStack = () => {
         <Stack.Screen 
         name='Buscar Tab' 
         component={Buscar}
-        options={{ title: 'Buscar' }} />
+        options={{
+          title: 'Buscar',
+           headerStyle: {
+            backgroundColor: '#ebb174',
+          },
+          headerTintColor: 'black',
+          headerTitleStyle: {
+            fontWeight: 'bold'
+          }
+        }} />
        
       </Stack.Navigator>
  

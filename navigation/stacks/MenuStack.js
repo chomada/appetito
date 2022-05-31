@@ -16,7 +16,16 @@ const MenuStack = () => {
       initialRouteName="Menu"
     >
 
-      <Stack.Screen name='Recetas' component={Recetas} options={{ title: 'Menu' }} />
+      <Stack.Screen name='Recetas' component={Recetas} options={{
+          title: 'Menu',
+           headerStyle: {
+            backgroundColor: '#ebb174',
+          },
+          headerTintColor: 'black',
+          headerTitleStyle: {
+            fontWeight: 'bold'
+          }
+        }}  />
       <Stack.Screen name='Detalle' component={Detalle} options={({route})=>({ title: route.params.item.nombre })} />
 
     </Stack.Navigator>

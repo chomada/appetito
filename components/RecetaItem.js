@@ -8,9 +8,13 @@ const RecetaItem = ({item,onSelected}) => {
               onPress={() => onSelected(item)}
             >
                 <View>
-                    <Text>
-                        {item.nombre}
-                    </Text>
+                   
+                    <Image source ={{uri: item.imagen}}
+              style = {{
+              height: 200,
+              width: 300,
+            }}
+            resizeMode = "cover"/>
                 </View>
              
             </TouchableOpacity>

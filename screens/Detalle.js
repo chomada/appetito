@@ -11,14 +11,13 @@ const Detalle = ({ route}) => {
   return (
       <View>
           <Text>{item.nombre}</Text>
-          <Image source ={{uri: item.image}}
+          <Image source ={{uri: item.imagen}}
               style = {{
               height: 200,
               width: '95%',
             }}
             resizeMode = "cover"/>
             <TouchableOpacity onPress={handleAdd}>
-            <Text>{item.price}</Text>
             <Text>Boton</Text>
           </TouchableOpacity>
       </View>

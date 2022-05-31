@@ -15,7 +15,16 @@ const FavoritosStack = () => {
         <Stack.Screen 
         name='Favoritos Tab' 
         component={Favoritos}
-        options={{ title: 'Favoritos' }} />
+        options={{
+          title: 'Favoritos',
+           headerStyle: {
+            backgroundColor: '#ebb174',
+          },
+          headerTintColor: 'black',
+          headerTitleStyle: {
+            fontWeight: 'bold'
+          }
+        }} />
        
       </Stack.Navigator>
     
