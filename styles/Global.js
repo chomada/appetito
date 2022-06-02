@@ -11,33 +11,8 @@ export default StyleSheet.create({
     right: 0,
     flex: 1,
     alignItems: "center"
-
-
-  },
-  marginer: {
-    marginTop: 25,
-    fontWeight: 'bold'
-
   },
 
-
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    margin: 20,
-    color: 'white',
-    textAlign: 'center'
-  },
-  orderTitle: {
-    fontSize: 16,
-    color: 'gray',
-    margin: 16,
-
-  },
-  myprice: {
-    padding: 15,
-    fontWeight: 'bold'
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -46,29 +21,7 @@ export default StyleSheet.create({
     textAlign: 'center'
 
   },
-  textButton: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center'
-
-
-  },
-  textButton2: {
-    color: '#1d3557',
-    fontWeight: 'bold',
-    textAlign: 'center'
-
-
-  },
-  list: {
-    padding: 20,
-    marginTop: 20,
-    backgroundColor: '#F79F79',
-    textAlign: 'center',
-    width: 200,
-
-    fontWeight: 'bold'
-  },
+  
   modalParent: {
     flex: 1,
     justifyContent: 'center',
@@ -105,6 +58,26 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold'
   },
+  btnMenu: {
+    padding: 2,
+    margin: 'auto',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    color: 'black',
+    fontWeight: 'bold',
+    margin:2,
+    textAlign:'center'
+  },
+  btnPlaceHolderBuscar: {
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginLeft:8,
+    marginRight:8
+    
+  },
   textRecordar:{
     fontSize:10,
     textAlign:'center',
@@ -121,16 +94,7 @@ export default StyleSheet.create({
     textAlign:'center'
   },
 
-   btnPurchase: {
-    padding: 15,
-    margin: 10,
-    backgroundColor: 'red',
-    borderRadius: 50,
-    width: 200,
-    textAlign: 'center',
-    color: 'white',
-    fontWeight: 'bold'
-  },
+   
   close: {
     fontWeight: 'bold',
     fontSize: 20,
@@ -139,18 +103,7 @@ export default StyleSheet.create({
     color:'white'
 
   },
-  input: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flexDirection: 'row',
-    padding: 15,
-    backgroundColor: 'white',
-    borderRadius: 15,
-
-    margin: 10,
-
-  },
+  
   textBlack: {
     color: 'black',
     textAlign: 'center',
@@ -158,9 +111,24 @@ export default StyleSheet.create({
   },
   textBlackTitle: {
     color: 'black',
-    textAlign: 'center',
+    textAlign: 'left',
     fontWeight: 'bold',
-    fontSize:40
+    fontSize:40,
+    marginRight:150,
+    marginTop:100
+  },
+  menuTitle: {
+    color: 'black',
+    textAlign: 'justify',
+    fontWeight: 'bold',
+    fontSize:30,
+    marginRight:125,
+  },
+  menuDesplegable:{
+    marginLeft:125,
+
+
+
   }
 
 });

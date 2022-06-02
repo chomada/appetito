@@ -43,6 +43,7 @@ const Auth1 = ({navigation,route}) => {
                     (errorCode, errorMessage);
                     setEmail("");
                     setPassword("");
+                    alert('Usuario o contraseña incorrecta')
                 })
                 .finally(()=> {
                     

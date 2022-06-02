@@ -17,9 +17,11 @@ const MenuStack = () => {
     >
 
       <Stack.Screen name='Recetas' component={Recetas} options={{
-          title: 'Menu',
+        
+          title: '',
+          header: () => null,
            headerStyle: {
-            backgroundColor: '#ebb174',
+            backgroundColor: '#ead5b4',
           },
           headerTintColor: 'black',
           headerTitleStyle: {
