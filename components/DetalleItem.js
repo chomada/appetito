@@ -1,5 +1,5 @@
 
-import { View, Text, Image, FlatList,ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useEffect, useState, useContext, useRef } from 'react';
 
 import { VirtualizedList } from 'react-native-web';
@@ -9,8 +9,7 @@ import { CreateFavourite as CreateFavouriteAPI } from '../controller/FavoriteCon
 import { DeleteFavourite as DeleteFavouriteAPI } from '../controller/FavoriteController';
 import { Menu } from '../context/MenuProvider';
 import { GetRecetaPorId as GetRecetaPorIdAPI } from '../controller/RecetaController';
-import DetalleItem from '../components/DetalleItem';
-const Detalle = ({ navigation, route }) => {
+const DetalleItem = ({ navigation, route }) => {
 
   const {id } = route.params;
   const [item, setItem] = useState({nombreReceta:'',descripcion:'',pasos:[],ingredientes:[]})
@@ -18,15 +17,14 @@ const Detalle = ({ navigation, route }) => {
   const { usuario, setUsuario } = useContext(Menu);
   const [fav, setFav] = useState(false)
 
-  const [letraElegida, setLetraElegida] = useState('Descripción');
+  const [letraElegida, setLetraElegida] = useState('Descripcion');
 
   const personalizar = () => {
     alert("Proximamente...")
   }
   const verDescripcion = () => {
     //aca iria item.descripcion o .ingredientes o .preparacion 
-    setLetraElegida('Descripción')
-    console.log("detalle receta: ",item)
+    setLetraElegida('Descripcion')
   }
   const verIngredientes = () => {
     //aca iria item.descripcion o .ingredientes o .preparacion 
@@ -34,7 +32,7 @@ const Detalle = ({ navigation, route }) => {
   }
   const verPreparacion = () => {
     //aca iria item.descripcion o .ingredientes o .preparacion 
-    setLetraElegida('Preparación')
+    setLetraElegida('Preparacion')
 
   }
   const verMas = () => {
@@ -210,7 +208,7 @@ const Detalle = ({ navigation, route }) => {
               resizeMode="cover" />
           </TouchableOpacity>
         </View>
-       {item.puntuacion==1? <Text style={Global.textBlack}> {item.puntuacion} estrella</Text>: <Text style={Global.textBlack}> {item.puntuacion} estrellas</Text>}
+        <Text style={Global.textBlack}>n de n votos</Text>
 
       </View>
 
@@ -220,7 +218,7 @@ const Detalle = ({ navigation, route }) => {
       <TouchableOpacity style={Global.btn2} onPress={verDescripcion}
 
 
-      ><Text style={Global.textBlack}>Descripción</Text>
+      ><Text style={Global.textBlack}>Descripcion</Text>
 
       </TouchableOpacity>
 
@@ -239,7 +237,7 @@ const Detalle = ({ navigation, route }) => {
 
       </TouchableOpacity>
     </View>
-    {letraElegida == 'Descripción' ? <View style={styles.textArea}>
+    {letraElegida == 'Descripcion' ? <View style={styles.textArea}>
       {item.descripcion.length > 100 ? <Text >{item.descripcion.slice(0, 99).replace(/^\w/, (c) => c.toUpperCase())}...</Text> : <Text >{item.descripcion.replace(/^\w/, (c) => c.toUpperCase())}</Text>}
       {item.descripcion.length > 100 ? <TouchableOpacity onPress={verMas}
 
@@ -253,12 +251,12 @@ const Detalle = ({ navigation, route }) => {
       {item.ingredientes.length > 2 ? <FlatList
         data={item.ingredientes.slice(0, 2)}
         renderItem={fnRenderItem}
-        keyExtractor={item => item.ingrediente}
+        keyExtractor={item => item.nombre}
 
       /> : <FlatList
         data={item.ingredientes}
         renderItem={fnRenderItem}
-        keyExtractor={item => item.ingrediente}
+        keyExtractor={item => item.nombre}
 
       />}
       {item.ingredientes.length > 2 ? <TouchableOpacity onPress={verMas2}
@@ -268,7 +266,7 @@ const Detalle = ({ navigation, route }) => {
 
       </TouchableOpacity> : null}
     </View> : null}
-    {letraElegida == 'Preparación' ? <View style={styles.textArea}>
+    {letraElegida == 'Preparacion' ? <View style={styles.textArea}>
 
       {item.pasos.length > 0 ? <TouchableOpacity onPress={verMas3}
 
@@ -277,17 +275,14 @@ const Detalle = ({ navigation, route }) => {
 
       </TouchableOpacity> : null}
     </View> : null}
-    </View>:<ActivityIndicator style={styles.espera}size={"large"} color={"blue"} />}
+    </View>:<ActivityIndicator size={"large"} color={"blue"} />}
   </View>
   )
 }
 
-export default Detalle
+export default DetalleItem
 
 const styles = StyleSheet.create({
-  espera:{
-    flex:1
-  },
   btnEstrellas: {
 
     padding: 5,

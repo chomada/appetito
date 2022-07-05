@@ -2,100 +2,107 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Button } from 'react-native';
 import Global from '../styles/Global';
 
-const Buscar = ({navigation}) => {
+const Buscar = ({ navigation }) => {
   const [habilitado, setHabilitado] = useState(false);
   const [busqueda, setBusqueda] = useState("");
   const [opcionBusqueda, setOpcionBusqueda] = useState("");
-  let inicial={height: 150,width: 150, borderRadius: 20, opacity: 0.7}
-  const [colored1,setColored1]=useState(inicial)
-  const [colored2,setColored2]=useState(inicial)
-  const [colored3,setColored3]=useState(inicial)
-  const [colored4,setColored4]=useState(inicial)
-  const [colored5,setColored5]=useState(inicial)
+  let inicial = { height: 150, width: 150, borderRadius: 20, opacity: 0.5 }
+  const [colored1, setColored1] = useState(inicial)
+  const [colored2, setColored2] = useState(inicial)
+  const [colored3, setColored3] = useState(inicial)
+  const [colored4, setColored4] = useState(inicial)
+  const [colored5, setColored5] = useState(inicial)
 
-let secundario={
-  height: 150,
-  width: 150, borderRadius: 20,
-  borderColor: 'red',
-  borderWidth: 5,
-}
-const colorear1 =()=>{
-  setHabilitado(true)
-  setColored1(secundario)
-  setColored2(inicial)
-  setColored3(inicial)
-  setColored4(inicial)
-  setColored5(inicial)
-  setOpcionBusqueda('tipo')
+  let secundario = {
+    height: 150,
+    width: 150, borderRadius: 20,
+    borderColor: 'red',
+    borderWidth: 5,
+  }
+  const colorear1 = () => {
+    setHabilitado(true)
+    setColored1(secundario)
+    setColored2(inicial)
+    setColored3(inicial)
+    setColored4(inicial)
+    setColored5(inicial)
+    setOpcionBusqueda('Tipo')
 
-}
-const colorear2 =()=>{
-  setHabilitado(true)
+  }
+  const colorear2 = () => {
+    setHabilitado(true)
 
-  setColored2(secundario)
-  setColored1(inicial)
-  setColored3(inicial)
-  setColored4(inicial)
-  setColored5(inicial)
-  setOpcionBusqueda('ingrediente')
+    setColored2(secundario)
+    setColored1(inicial)
+    setColored3(inicial)
+    setColored4(inicial)
+    setColored5(inicial)
+    setOpcionBusqueda('Ingrediente')
 
-}
-const colorear3 =()=>{
-  setHabilitado(true)
+  }
+  const colorear3 = () => {
+    setHabilitado(true)
 
-  setColored3(secundario)
-  setColored1(inicial)
-  setColored2(inicial)
-  setColored4(inicial)
-  setColored5(inicial)
-  setOpcionBusqueda('usuario')
+    setColored3(secundario)
+    setColored1(inicial)
+    setColored2(inicial)
+    setColored4(inicial)
+    setColored5(inicial)
+    setOpcionBusqueda('Usuario')
 
-}
-const colorear4 =()=>{
-  setHabilitado(true)
+  }
+  const colorear4 = () => {
+    setHabilitado(true)
 
-  setColored4(secundario)
-  setColored1(inicial)
-  setColored2(inicial)
-  setColored3(inicial)
-  setColored5(inicial)
-  setOpcionBusqueda('receta')
+    setColored4(secundario)
+    setColored1(inicial)
+    setColored2(inicial)
+    setColored3(inicial)
+    setColored5(inicial)
+    setOpcionBusqueda('Receta')
 
-}
-const colorear5 =()=>{
-  setHabilitado(true)
+  }
+  const colorear5 = () => {
+    setHabilitado(true)
 
-  setColored5(secundario)
-  setColored1(inicial)
-  setColored2(inicial)
-  setColored3(inicial)
-  setColored4(inicial)
-  setOpcionBusqueda('noingrediente')
+    setColored5(secundario)
+    setColored1(inicial)
+    setColored2(inicial)
+    setColored3(inicial)
+    setColored4(inicial)
+    setOpcionBusqueda('No Ingrediente')
 
-}
-const buscarReceta=()=>{
-  
-
+  }
+  const buscarReceta = () => {
 
     navigation.navigate('Buscar2', {
       opcionBusqueda: opcionBusqueda,
       busqueda: busqueda.toLowerCase()
     })
-  
-  
-}
+    setBusqueda('');
+    setOpcionBusqueda('');
+    setColored1(inicial)
+    setColored2(inicial)
+    setColored3(inicial)
+    setColored4(inicial)
+    setColored5(inicial)
+    setHabilitado(false)
+    
+
+
+  }
 
   return (
     <View style={Global.container}>
       <View style={styles.barraBusqueda} >
-        <TextInput style={Global.btnPlaceHolderBuscar}
-          editable={habilitado}
+        {opcionBusqueda!=''?<TextInput style={Global.btnPlaceHolderBuscar}
+           editable={habilitado}
           value={busqueda}
           onChangeText={setBusqueda}
-          placeholder="Busca por tipo, ingrediente, usuario o nombre de receta"
+          placeholder="Escriba lo que desea buscar."
           placeholderTextColor='#c7c6c6'
-        ></TextInput>
-        {busqueda!==''?<TouchableOpacity style={styles.botonBusqueda} onPress={buscarReceta}><Text style={Global.textBlack}>Buscar</Text></TouchableOpacity>:null}
+        ></TextInput>:<Text style={Global.textBlack3}>Seleccione por cuál categoria desea buscar</Text>}
+        {busqueda.length > 2 ? <TouchableOpacity style={styles.botonBusqueda} onPress={buscarReceta}><Text style={Global.textBlack}>Buscar</Text></TouchableOpacity> : null}
 
 
       </View>
@@ -170,7 +177,7 @@ const buscarReceta=()=>{
         >
           <View>
 
-            <Image source={require("./../assets/mila.jpg")} style={colored5}
+            <Image source={require("./../assets/noIngrediente.png")} style={colored5}
               resizeMode="cover" />
           </View>
 
@@ -198,11 +205,11 @@ const styles = StyleSheet.create({
     margin: 20,
     marginLeft: 30
   },
-  barraBusqueda:{
-    flexDirection:'row'
+  barraBusqueda: {
+    flexDirection: 'row'
   },
-  botonBusqueda:{
-    padding: 10,   
+  botonBusqueda: {
+    padding: 10,
     backgroundColor: 'orange',
     borderRadius: 15,
     textAlign: 'center',

@@ -14,7 +14,7 @@ const BuscarStack = () => {
         
       >
         <Stack.Screen 
-        name='Buscar Tab' 
+        name='Buscar' 
         component={Buscar}
         options={{
           title: 'Buscar',

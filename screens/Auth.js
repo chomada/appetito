@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, Image, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, Image, TouchableOpacity, View, KeyboardAvoidingView } from 'react-native';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/Config';
 import Global, { colors } from '../styles/Global';
@@ -25,7 +25,9 @@ const Auth = ({ navigation, route }) => {
         navigation.navigate('Auth2')
     }
     return (
+        
         <View style={Global.container}>
+            <KeyboardAvoidingView>
             <View>
                 <Image source={require("./../assets/appetitologo.png")} style={{
                     height: 200,
@@ -35,21 +37,22 @@ const Auth = ({ navigation, route }) => {
 
                 }}
                     resizeMode="cover" />
-                <TouchableOpacity style={Global.btn} onPress={() => handleIniciar()}>
-                    <Text style={Global.textBlack} >Iniciar sesión</Text>
+                <TouchableOpacity style={[Global.btn,Global.shadows]} onPress={() => handleIniciar()}>
+                    <Text style={Global.textBlack } >Iniciar sesión</Text>
                 </TouchableOpacity>
 
                 <Text style={Global.textBlack} textBlack>¿Primera vez que ingresás?</Text>
 
-                <TouchableOpacity style={Global.btn} onPress={() => handleRegistrate()}>
-                    <Text style={Global.textBlack} >Registrate</Text>
+                <TouchableOpacity style={[Global.btn,Global.shadows]} onPress={() => handleRegistrate()}>
+                    <Text style={[Global.textBlack]} >Registrate</Text>
                 </TouchableOpacity>
 
 
-
+            
             </View>
-
+            </KeyboardAvoidingView>
         </View>
+        
     )
 }
 

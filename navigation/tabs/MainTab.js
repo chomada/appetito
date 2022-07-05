@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import BuscarStack from '../stacks/BuscarStack';
 import FavoritosStack from '../stacks/FavoritosStack';
 import MenuStack from '../stacks/MenuStack';
-import {  Image } from 'react-native';
+import { Image } from 'react-native';
 
 const MainTab = () => {
     const Tab = createBottomTabNavigator();
