@@ -5,8 +5,7 @@ import {
 } from 'react-native'
 import RecetaItem from '../components/RecetaItem';
 import { Menu } from '../context/MenuProvider';
-import { auth } from '../firebase/Config';
-import { signOut } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Global from '../styles/Global';
 
 import Collapsible from 'react-native-collapsible';
@@ -16,7 +15,7 @@ import ModalUnico from '../components/ModalUnico';
 const Recetas = ({ navigation, route }) => {
 
 
-  const { setEnabled, recetas, usuario,recetaGuardada } = useContext(Menu);
+  const { setEnabled, recetas, usuario,recetasPersonalizadas,setRecetasPersonalizadas } = useContext(Menu);
   const [antigua, setAntigua] = useState('Ordenar');
   const [modal, setModal] = useState(false);
 
@@ -32,7 +31,7 @@ const Recetas = ({ navigation, route }) => {
   }
 
   const irRecetasPersonalizadas = () => {
-    alert("Proximamente...");
+    navigation.navigate('PersonalizadasList')
   }
   const cargarReceta = () => {
     navigation.navigate('Carga')
@@ -79,9 +78,19 @@ const Recetas = ({ navigation, route }) => {
       recetas.sort(SortArray);
     }
   }
+  
+  const guardarEnDispo = async () => {
 
+   
+      await AsyncStorage.setItem('recetasPersonalizadas', JSON.stringify(recetasPersonalizadas));
+     
+    
+  }
 
-
+  useEffect(()=> {
+    guardarEnDispo();
+    
+  }, [])
 
   return (
 

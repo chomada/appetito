@@ -10,6 +10,7 @@ const MenuProvider = ({children}) => {
   const [usuario, setUsuario] = useState({})
   const [enabled, setEnabled] = useState(false)
   const [recetaGuardada, setRecetaGuardada] = useState({"id":''})
+  const [recetasPersonalizadas, setRecetasPersonalizadas] = useState([])
 
   const handleSubmit = async (event) =>{
  
@@ -18,10 +19,16 @@ const MenuProvider = ({children}) => {
     console.log(getRecetas)
 
 }
+const borrado=(id)=>{
+  const auxi = recetasPersonalizadas.filter(item => item._id !== id);
+  setRecetasPersonalizadas(auxi);
+}
 const cargarUsuario=(user)=>{
   setUsuario(user)
 }
-
+const guardarRecetaPersonalizada=(recetaPer)=>{
+  setRecetasPersonalizadas([...recetasPersonalizadas,recetaPer])
+}
   useEffect(()=> {
 
     if(enabled){
@@ -37,7 +44,9 @@ const cargarUsuario=(user)=>{
   
   return (
     <Menu.Provider value={{ 
-      recetas, usuario, enabled,recetaGuardada, setUsuario,setEnabled,setRecetas,cargarUsuario,setRecetaGuardada
+      recetas, usuario, enabled,recetaGuardada,recetasPersonalizadas,
+      setUsuario,setEnabled,setRecetas,cargarUsuario,setRecetaGuardada,guardarRecetaPersonalizada,borrado,
+      setRecetasPersonalizadas
     }}>
       {children}
     </Menu.Provider>

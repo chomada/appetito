@@ -2,34 +2,21 @@
 import { View, Text, Image, FlatList,ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native';
 import { useEffect, useState, useContext, useRef } from 'react';
 
-import { VirtualizedList } from 'react-native-web';
 import Global from '../styles/Global';
 import IngredienteItem from '../components/IngredienteItem';
-import { CreateFavourite as CreateFavouriteAPI } from '../controller/FavoriteController';
-import { DeleteFavourite as DeleteFavouriteAPI } from '../controller/FavoriteController';
-import { Menu } from '../context/MenuProvider';
-import { GetRecetaPorId as GetRecetaPorIdAPI } from '../controller/RecetaController';
-import DetalleItem from '../components/DetalleItem';
-const Detalle = ({ navigation, route }) => {
 
-  const {id } = route.params;
-  const [item, setItem] = useState({nombreReceta:'',descripcion:'',pasos:[],ingredientes:[]})
+const DetallePersonalizado = ({ navigation, route }) => {
 
-  const { usuario, setUsuario } = useContext(Menu);
-  const [fav, setFav] = useState(false)
+  const {item } = route.params;
+
+ 
 
   const [letraElegida, setLetraElegida] = useState('Descripción');
 
-  const personalizar = () => {
-    navigation.navigate('Personalizar', {
-      
-      item: item
-    })
-  }
+  
   const verDescripcion = () => {
     //aca iria item.descripcion o .ingredientes o .preparacion 
     setLetraElegida('Descripción')
-    console.log("detalle receta: ",item)
   }
   const verIngredientes = () => {
     //aca iria item.descripcion o .ingredientes o .preparacion 
@@ -61,63 +48,11 @@ const Detalle = ({ navigation, route }) => {
   const fnRenderItem = ({ item }) => {
     return <IngredienteItem item={item} />
   }
-  //usuario.recetas.find(elemento => elemento.nameReceta === busqueda
-  const agregarFav = async (event) => {
+  
 
-
-    try {
-      let getFavourite = await CreateFavouriteAPI(usuario.email, item._id, item.nombreReceta, item.imagen, item.createdAt);
-      if (getFavourite.rdo === 200) {
-        //cambiar color
-        setUsuario(getFavourite.user)
-      }
-      else {
-        alert("Error al agregar favorito intente nuevamente")
-      }
-
-    } catch (error) {
-
-
-    }
-
-  }
-
-  const sacarFav = async (event) => {
-    try {
-      let getFavourite = await DeleteFavouriteAPI(usuario.email, item._id);
-      if (getFavourite.rdo === 200) {
-        setUsuario(getFavourite.user)
-      }
-      else {
-        alert("Error al borrar favorito intente nuevamente")
-      }
-
-    } catch (error) {
-
-
-    }
-
-
-  }
-  const recetaId = async (event) => {
-
-    let getRecetaId = await GetRecetaPorIdAPI(id);
-    setItem(getRecetaId.data.receta)
-
-  }
-  useEffect(() => {
-    recetaId();
-    if (usuario.favorites.find(elemento => elemento.nameReceta === item.nombreReceta)) {
-      setFav(true)
-    } else {
-      setFav(false)
-    }
-  }, [agregarFav, sacarFav])
   return (
     <View style={Global.container2} >
-    <TouchableOpacity style={Global.btnPersonalizar} onPress={() => personalizar()}>
-      <Text style={Global.titlePersonalizar}>Personalizar receta</Text>
-    </TouchableOpacity>
+   
     {item.nombreReceta!=''?<View>
 
     <Image source={{ uri: item.imagen }}
@@ -130,11 +65,7 @@ const Detalle = ({ navigation, route }) => {
     <View style={styles.flexi}>
       {item.nombreReceta.length > 10 ? <Text style={Global.recetaTitleChico}>{item.nombreReceta.replace(/^\w/, (c) => c.toUpperCase())}</Text> :
         <Text style={Global.recetaTitle}>{item.nombreReceta.replace(/^\w/, (c) => c.toUpperCase())}</Text>}
-      {fav ? <TouchableOpacity style={Global.like} onPress={sacarFav} >
-        <Image source={require("./../assets/black.png")} style={{ width: 40, height: 40 }} />
-      </TouchableOpacity> : <TouchableOpacity style={Global.like} onPress={agregarFav} >
-        <Image source={require("./../assets/heart.png")} style={{ width: 40, height: 40 }} />
-      </TouchableOpacity>}
+    
 
     </View>
 
@@ -285,7 +216,7 @@ const Detalle = ({ navigation, route }) => {
   )
 }
 
-export default Detalle
+export default DetallePersonalizado
 
 const styles = StyleSheet.create({
   espera:{

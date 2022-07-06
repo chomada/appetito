@@ -3,7 +3,7 @@ import Global from '../styles/Global';
 
 const { width, height } = Dimensions.get('window');
 
-const IngredienteItem = ({ item, eliminar,valida, edicion}) => {
+const IngredienteItem = ({ item, eliminar,valida, valida2,edicion}) => {
 
 
   return (
@@ -31,7 +31,7 @@ const IngredienteItem = ({ item, eliminar,valida, edicion}) => {
         </TouchableOpacity>
 
     :null}
-    {valida?  <TouchableOpacity style={styles.borrar} onPress={()=>eliminar(item.ingrediente)}
+    {valida2?  <TouchableOpacity style={styles.borrar} onPress={()=>eliminar(item.ingrediente)}
         
 
         ><Text style={{

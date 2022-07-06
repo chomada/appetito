@@ -256,7 +256,7 @@ const Carga = ({ navigation }) => {
     setTitleIngrediente('Aceptar')
   }
   const fnRenderItem = ({ item }) => {
-    return <IngredienteItem item={item} valida={valida} eliminar={eliminar} edicion={edicion} />
+    return <IngredienteItem item={item} valida={valida} valida2={valida}eliminar={eliminar} edicion={edicion} />
   }
 
 

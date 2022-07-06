@@ -12,6 +12,9 @@ import Paso2 from "../../screens/Paso2";
 import Paso3 from "../../screens/Paso3";
 import Paso4 from "../../screens/Paso4";
 import Paso5 from "../../screens/Paso5";
+import Personalizar from "../../screens/Personalizar";
+import DetallePersonalizado from "../../screens/DetallePersonalizado";
+import PersonalizadasList from "../../screens/PersonalizadasList";
 
 
 const MenuStack = () => {
@@ -59,6 +62,22 @@ const MenuStack = () => {
       }} />
          <Stack.Screen name='Carga2' component={Carga2} options={{
         title: '', headerStyle: {
+          backgroundColor: '#ebb174'
+        }
+      }} />
+          
+       <Stack.Screen name='Personalizar' component={Personalizar} options={{
+        title: 'Personalizar', headerStyle: {
+          backgroundColor: '#ebb174'
+        }
+      }} />
+        <Stack.Screen name='DetallePersonalizado' component={DetallePersonalizado} options={{
+        title: 'Personalizada', headerStyle: {
+          backgroundColor: '#ebb174'
+        }
+      }} />
+          <Stack.Screen name='PersonalizadasList' component={PersonalizadasList} options={{
+        title: 'Lista', headerStyle: {
           backgroundColor: '#ebb174'
         }
       }} />
