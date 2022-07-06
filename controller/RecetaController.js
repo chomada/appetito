@@ -139,7 +139,6 @@ export const CreateReceta = async (idUsuario,nombreUsuario, nombreReceta, descri
 
         const json = await response.json();
         let rdo = response.status;
-        console.log("rdo: ",rdo);
         
         switch(rdo) {
             case 200: {
@@ -200,7 +199,6 @@ export const ReplaceReceta = async (idReceta,idUsuario,nombreUsuario, nombreRece
 
         const json = await response.json();
         let rdo = response.status;
-        console.log("rdo: ",rdo);
         
         switch(rdo) {
             case 200: {
@@ -262,7 +260,6 @@ export const UpdateReceta = async (idReceta,idUsuario,nombreUsuario, nombreRecet
 
         const json = await response.json();
         let rdo = response.status;
-        console.log("rdo: ",rdo);
         
         switch(rdo) {
             case 200: {

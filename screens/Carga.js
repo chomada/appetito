@@ -327,7 +327,6 @@ const Carga = ({ navigation }) => {
   const subirReceta= async()=>{
     let createReceta = await CreateRecetaAPI(recetaGuardada.usuarioId,recetaGuardada.usuario,recetaGuardada.nombreReceta,recetaGuardada.descripcion,recetaGuardada.imagen,recetaGuardada.personas,recetaGuardada.minutos, recetaGuardada.esfuerzo,recetaGuardada.tipo,recetaGuardada.pasos,recetaGuardada.ingredientes);
     if (createReceta.rdo === 200) {
-      console.log("creado: ",createReceta.json);
 
       let createRecipeInUserAPI = await CreateRecipeInUserAPI(usuario.email, createReceta.json.receta._id, createReceta.json.receta.nombreReceta, createReceta.json.receta.imagen, createReceta.json.receta.createdAt);
     }

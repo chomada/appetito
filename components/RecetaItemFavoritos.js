@@ -10,7 +10,6 @@ const RecetaItemFavoritos = ({ item, onSelected }) => {
 
   const sacarFav = async (event) => {
     try {
-      console.log("item: ",item)
       let getFavourite = await DeleteFavouriteAPI(usuario.email, item.idReceta);
       if (getFavourite.rdo === 200) {
         setUsuario(getFavourite.user)

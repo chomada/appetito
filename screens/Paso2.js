@@ -114,12 +114,10 @@ const Paso2 = ({ navigation, route }) => {
 
   }
   const finalizarCarga = async (event) => {
-    console.log("finalizando carga")
-    console.log("reemplazar: ",reemplazar,"editar: ",editar)
+    
 
     try {
       if (reemplazar) {
-        console.log("adentro de reemplazar")
         let replaceReceta = await ReplaceRecetaAPI(idReceta, usuario._id, usuario.name, nombreReceta, descripcion, imagen, personas, minutos, esfuerzo, tipo, [paso1,{ "paso": 2, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], ingredientes);
         if (replaceReceta.rdo === 200) {
           console.log("reemplazada: ", replaceReceta.json)
@@ -129,10 +127,8 @@ const Paso2 = ({ navigation, route }) => {
         }
       }
       if (editar) {
-        console.log("adentro de editar")
 
         let updateReceta = await UpdateRecetaAPI(idReceta, usuario._id, usuario.name, nombreReceta, descripcion, imagen, personas, minutos, esfuerzo, tipo, [paso1,{ "paso": 2, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], ingredientes);
-        console.log("editar receta: ", updateReceta)
         if (updateReceta.rdo === 200) {
           console.log("edicion correcta")
         } else {
@@ -140,14 +136,11 @@ const Paso2 = ({ navigation, route }) => {
         }
       }
       if ((editar == false) && (editar == false)) {
-        console.log("adentro de crear")
 
         let createReceta = await CreateRecetaAPI(usuario._id, usuario.name, nombreReceta, descripcion, imagen, personas, minutos, esfuerzo, tipo, [paso1, { "paso": 2, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], ingredientes);
         if (createReceta.rdo === 200) {
-          console.log("creado: ", createReceta.json);
 
           let createRecipeInUserAPI = await CreateRecipeInUserAPI(usuario.email, createReceta.json.receta._id, createReceta.json.receta.nombreReceta, createReceta.json.receta.imagen, createReceta.json.receta.createdAt);
-          console.log("parametros: ", createRecipeInUserAPI)
           if (createRecipeInUserAPI.rdo === 200) {
             console.log("usuario actualizado: ");
           } else {

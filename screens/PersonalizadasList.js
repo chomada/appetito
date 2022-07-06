@@ -12,7 +12,6 @@ const PersonalizadasList = ({ navigation, route }) => {
 
  
   const handleDetail = (item) => {
-    console.log("item id desde buscar: ", item._id)
 
     navigation.navigate('DetallePersonalizado', {
       id: item._id,

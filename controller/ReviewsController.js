@@ -3,7 +3,6 @@ import urlWebServices from './WebServices.js';
 export const CreateReview = async (idReceta, calificacion) => {
     //url webservices
     let URL_API = urlWebServices.createReview;
-    console.log("adentro controller")
     let req = JSON.stringify({
         calificacion: calificacion
     })
@@ -20,7 +19,6 @@ export const CreateReview = async (idReceta, calificacion) => {
 
         const json = await response.json();
         let rdo = response.status;
-        console.log("rdo: ",rdo);
         
         switch(rdo) {
             case 200: {

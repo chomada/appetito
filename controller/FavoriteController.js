@@ -3,7 +3,6 @@ import urlWebServices from './WebServices.js';
 export const CreateFavourite = async (email, idReceta, nameReceta, image, createdAt) => {
     //url webservices
     let URL_API = urlWebServices.createFavourite;
-    console.log("datos: ",email, idReceta, nameReceta, image, createdAt)
     let req = JSON.stringify({
         idReceta: idReceta,
         nameReceta: nameReceta,
@@ -23,7 +22,6 @@ export const CreateFavourite = async (email, idReceta, nameReceta, image, create
 
         const json = await response.json();
         let rdo = response.status;
-        console.log("rdo: ",rdo);
 
         switch(rdo) {
                 // Respuesta exitosa, favorito creado, retorna el usuario actualizado.
@@ -74,7 +72,6 @@ export const DeleteFavourite = async (email, idReceta) => {
 
         const json = await response.json();
         let rdo = response.status;
-        console.log("rdo: ",rdo);
 
         switch(rdo) {
                 // Respuesta exitosa, favorito borrado, retorna el usuario actualizado.

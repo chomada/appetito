@@ -3,7 +3,6 @@ import urlWebServices from './WebServices.js';
 export const CreateUser = async (email,alias) => {
     //url webservices
     let URL_API = urlWebServices.createUser;
-    console.log("email y alias",email,alias)
     let req = JSON.stringify({
         email:email,
         alias:alias
@@ -21,22 +20,17 @@ export const CreateUser = async (email,alias) => {
 
         const json = await response.json();
         let rdo = response.status;
-        console.log("rdo: ",rdo);
         switch(rdo) {
             case 200: {
                 if(json.alias){
-                    console.log(json.alias,"ya existe")
                     return ({alias:json.alias,rdo:0, mensaje:"ya existe"}); // Correcto
                 }else if(json.email){
                     
-                    console.log("recuperar contraseña")
                     return ({rdo:0, mensaje:"recuperar contraseña"}); // Correcto
                 }else if(json.email==false){
                     
-                    console.log("no se puede usar ese email")
                     return ({rdo:0, mensaje:"no se puede usar ese email"}); // Correcto
                 }else{
-                    console.log("se ha creado satisfactoriamente")
                     return ({user:json.user,rdo:0, mensaje:"se ha creado satisfactoriamente"}); // Correcto
                 }
                 
@@ -129,7 +123,6 @@ export const UpdateUser = async (alias, name, password, gender, birth) => {
 export const RecoverUser = async (email,password,codigo) => {
     //url webservices
     let URL_API = urlWebServices.recover;
-    console.log("recupero user",email,password,codigo)
     let req = JSON.stringify({
         password:password,
         recoveryCode:codigo
@@ -147,7 +140,6 @@ export const RecoverUser = async (email,password,codigo) => {
 
         const json = await response.json();
         let rdo = response.status;
-        console.log("rdo: ",rdo);
 
         switch(rdo) {
             case 200: {

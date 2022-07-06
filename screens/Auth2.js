@@ -31,8 +31,6 @@ const Auth2 = ({ navigation, route }) => {
 
       try {
         let getCreate = await CreateUserAPI(email, alias);
-        console.log("alias disponibles:", getCreate.alias);
-        console.log("que trae:", getCreate);
         if (getCreate.mensaje === "ya existe") {
           let opciones = `Ej: ${getCreate.alias.aliasOptions1.slice(0,-2)} - ${getCreate.alias.aliasOptions2.slice(0,-2)}`
 

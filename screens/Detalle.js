@@ -31,7 +31,6 @@ const Detalle = ({ navigation, route }) => {
   const verDescripcion = () => {
     //aca iria item.descripcion o .ingredientes o .preparacion 
     setLetraElegida('Descripción')
-    console.log("detalle receta: ", item)
   }
   const verIngredientes = () => {
     //aca iria item.descripcion o .ingredientes o .preparacion 
@@ -83,28 +82,19 @@ const Detalle = ({ navigation, route }) => {
     }
 
   }
-  //  let agregoNum = () => {
-  //   setNum(num)
-  //   console.log("num: ",num)
-    
-  // }
+ 
   function agregoNum(leadTagNumber){
     setNum(Number(leadTagNumber))
     agregarReview();
  }
 
   const agregarReview = async (event) => {
-    console.log("dentro de review",item._id,num)
 
     try {
-      console.log("dentro de try")
 
       let createReview = await CreateReviewAPI(item._id, num);
-      console.log("createReview")
 
       if (createReview.rdo === 200) {
-        //cambiar color
-        console.log("ok")
       }
       else {
         alert("Error al agregar la receña intente nuevamente")

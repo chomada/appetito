@@ -21,7 +21,6 @@ const Favoritos = ({ navigation, route }) => {
   }
   const handleDetail = (item) => {
 
-console.log("item id desde fav: ",item.idReceta)
     navigation.navigate('Detalle', {
       id: item.idReceta,
 

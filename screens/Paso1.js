@@ -31,7 +31,6 @@ const Paso1 = ({ navigation, route }) => {
 
 
   const wifi = () => {
-    console.log("net info: ",netInfo)
     if(netInfo.type === "wifi"){
       setModalTitle('Desea finalizar la carga?')
       setModal(true)
@@ -52,13 +51,11 @@ const Paso1 = ({ navigation, route }) => {
   }
   const subirMastarde = () => {
     setRecetaGuardada({"usuarioId":usuario._id,"usuario":usuario.name,"nombreReceta":nombreReceta,"descripcion":descripcion,"imagen":imagen,"personas":personas,"minutos":minutos, "esfuerzo":esfuerzo,"tipo":tipo,"pasos":[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],"ingredientes":ingredientes})
-    console.log("la receta guardada: ",recetaGuardada)
     setModalTitle2("Receta guardada exitosamente")
     setModal2(true)
   
   }
   const paso2 = () => {
-    console.log("id del paso 1: ",idReceta)
     navigation.navigate('Paso2', {
       tipo: tipo,
       nombreReceta: nombreReceta,
@@ -147,20 +144,16 @@ const Paso1 = ({ navigation, route }) => {
 
     try {
       if(reemplazar){
-        console.log("idReceta: ",idReceta)
         let replaceReceta = await ReplaceRecetaAPI(idReceta,usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
         if (replaceReceta.rdo === 200) {
-          console.log("reemplazada: ",replaceReceta.json)
         }
         else {
           alert("Error al crear receta intente nuevamente")
         }
       }
        if(editar){
-        console.log("adentro de editar")
         
         let updateReceta = await UpdateRecetaAPI(idReceta,usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
-        console.log("editar receta: ",updateReceta)
         if(updateReceta.rdo===200){
           console.log("edicion correcta")
         }else{
@@ -170,10 +163,8 @@ const Paso1 = ({ navigation, route }) => {
       if((editar==false) && (editar==false)) {
       let createReceta = await CreateRecetaAPI(usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
       if (createReceta.rdo === 200) {
-        console.log("creado: ",createReceta.json);
 
         let createRecipeInUserAPI = await CreateRecipeInUserAPI(usuario.email, createReceta.json.receta._id, createReceta.json.receta.nombreReceta, createReceta.json.receta.imagen, createReceta.json.receta.createdAt);
-        console.log("parametros: ",createRecipeInUserAPI)
         if(createRecipeInUserAPI.rdo===200){
           console.log("usuario actualizado: ");
         }else{

@@ -63,7 +63,6 @@ const Buscar2 = ({ navigation, route }) => {
     return <RecetaItemBuscar item={item} onSelected={handleDetail} />
   }
   const handleDetail = (item) => {
-    console.log("item id desde buscar: ", item._id)
 
     navigation.navigate('Detalle', {
       id: item._id,
@@ -93,7 +92,6 @@ const Buscar2 = ({ navigation, route }) => {
   }
   const ordenar2 = () => {
 
-    console.log("recetas filtradas: ", recetasFiltradas)
 
     if (antigua2 === 'A - Z ▲') {
       setAntigua2('Z - A ▼');
