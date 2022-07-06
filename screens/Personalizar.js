@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react'
 import { StyleSheet, ActivityIndicator, FlatList, View, Text, TouchableOpacity, TextInput } from 'react-native';
 import Global from '../styles/Global';
 import { Menu } from '../context/MenuProvider';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import IngredienteItem from '../components/IngredienteItem';
 import ModalUnico from '../components/ModalUnico';

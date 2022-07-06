@@ -6,6 +6,7 @@ import {
 import RecetaItem from '../components/RecetaItem';
 import { Menu } from '../context/MenuProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import Global from '../styles/Global';
 
 import Collapsible from 'react-native-collapsible';
@@ -96,8 +97,10 @@ const Recetas = ({ navigation, route }) => {
 
     <View style={Global.container}>
       <View style={styles.flexi2}>
-        <Text style={Global.menuTitle}>          </Text>
+        <Text style={Global.menuTitle}>Destacadas</Text>
         <View>
+         
+
           <TouchableOpacity onPress={toggleExpanded}>
             <View style={Global.menuDesplegable}>
               <Text ><Image source={require("./../assets/menu.png")} style={{
@@ -134,7 +137,6 @@ const Recetas = ({ navigation, route }) => {
 
       </View>
       <View style={styles.flexi}>
-        <Text style={Global.textBlackTitle}>Destacadas</Text>
         <TouchableOpacity style={[styles.btn, Global.shadows]} onPress={ordenar}>
           <Text style={styles.textBlack}>
             {antigua}
@@ -212,6 +214,7 @@ const styles = StyleSheet.create({
 
   },
   btn: {
+    padding:10,
     marginBottom: 20,
     backgroundColor: '#FB9906',
     borderRadius: 15,
@@ -220,7 +223,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 100
+    width: 120
   },
 
   textBlack: {

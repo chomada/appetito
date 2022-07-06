@@ -5,6 +5,8 @@ import { LogBox } from 'react-native';
 import MenuProvider from './context/MenuProvider';
 import Global from './styles/Global';
 
+//LogBox.ignoreAllLogs(true)
+
 
 export default function App() {
   

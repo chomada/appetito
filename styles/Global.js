@@ -223,7 +223,7 @@ export default StyleSheet.create({
     textAlign: 'justify',
     fontWeight: 'bold',
     fontSize:30,
-    marginRight:125,
+    marginRight:20,
   },
   picker: {
     // marginVertical: 30,

@@ -3,7 +3,7 @@ import { StyleSheet, ActivityIndicator, FlatList, View, Text, TouchableOpacity }
 import Global from '../styles/Global';
 import { Menu } from '../context/MenuProvider';
 
-import RecetaItemBuscar from '../components/RecetaItemBuscar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import RecetaItemPersonalizada from '../components/RecetaItemPersonalizada';
 
 const PersonalizadasList = ({ navigation, route }) => {

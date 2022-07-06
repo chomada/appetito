@@ -120,33 +120,7 @@ const DetallePersonalizado = ({ navigation, route }) => {
 
 
 
-      <View style={styles.btnEstrellas}>
-        <View style={styles.vistaImagen2} >
-          <TouchableOpacity>
-            <Image source={require("./../assets/star.png")} style={{ width: 30, height: 30 }}
-              resizeMode="cover" />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image source={require("./../assets/star.png")} style={{ width: 30, height: 30 }}
-              resizeMode="cover" />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image source={require("./../assets/star.png")} style={{ width: 30, height: 30 }}
-              resizeMode="cover" />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Image source={require("./../assets/star.png")} style={{ width: 30, height: 30 }}
-              resizeMode="cover" />
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <Image source={require("./../assets/star.png")} style={{ width: 30, height: 30 }}
-              resizeMode="cover" />
-          </TouchableOpacity>
-        </View>
-       {item.puntuacion==1? <Text style={Global.textBlack}> {item.puntuacion} estrella</Text>: <Text style={Global.textBlack}> {item.puntuacion} estrellas</Text>}
-
-      </View>
+     
 
     </View>
 

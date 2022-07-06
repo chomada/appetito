@@ -9,7 +9,6 @@ import { CreateFavourite as CreateFavouriteAPI } from '../controller/FavoriteCon
 import { DeleteFavourite as DeleteFavouriteAPI } from '../controller/FavoriteController';
 import { Menu } from '../context/MenuProvider';
 import { GetRecetaPorId as GetRecetaPorIdAPI } from '../controller/RecetaController';
-import DetalleItem from '../components/DetalleItem';
 import { CreateReview as CreateReviewAPI } from '../controller/ReviewsController';
 const Detalle = ({ navigation, route }) => {
 
@@ -83,18 +82,23 @@ const Detalle = ({ navigation, route }) => {
 
   }
  
-  function agregoNum(leadTagNumber){
-    setNum(Number(leadTagNumber))
-    agregarReview();
+   function agregoNum(leadTagNumber){
+
+      setNum(leadTagNumber)
+      agregarReview(leadTagNumber);
+
+     
+    
  }
 
   const agregarReview = async (event) => {
 
     try {
 
-      let createReview = await CreateReviewAPI(item._id, num);
+      let createReview = await CreateReviewAPI(item._id,usuario._id, event);
 
       if (createReview.rdo === 200) {
+        console.log("createReview:",createReview)
       }
       else {
         alert("Error al agregar la receña intente nuevamente")
@@ -125,19 +129,38 @@ const Detalle = ({ navigation, route }) => {
 
   }
   const recetaId = async (event) => {
+    try{
+      let getRecetaId = await GetRecetaPorIdAPI(id);
+      setItem(getRecetaId.data.receta)
+      const filterReview = getRecetaId.data.receta.reviews.filter(elemento => elemento.usuario == usuario._id);
+      if(filterReview){
+        setNum(filterReview[0].calificacion)
+      }
+  
 
-    let getRecetaId = await GetRecetaPorIdAPI(id);
-    setItem(getRecetaId.data.receta)
+    }catch(error){
+      console.log(error)
+    }
+   
+    
+    
 
   }
   useEffect(() => {
-    recetaId();
-    if (usuario.favorites.find(elemento => elemento.nameReceta === item.nombreReceta)) {
-      setFav(true)
-    } else {
-      setFav(false)
-    }
-  }, [agregarFav, sacarFav])
+    (async ()=>{
+      recetaId();
+   
+      if (usuario.favorites.find(elemento => elemento.nameReceta === item.nombreReceta)) {
+        setFav(true)
+      } else {
+        setFav(false)
+      }
+   
+      
+  })()
+    
+   
+  }, [recetaId])
   return (
     <View style={Global.container2} >
       <TouchableOpacity style={Global.btnPersonalizar} onPress={() => personalizar()}>

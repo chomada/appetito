@@ -1,10 +1,13 @@
 import urlWebServices from './WebServices.js';
 
-export const CreateReview = async (idReceta, calificacion) => {
+export const CreateReview = async (idReceta,usuario, calificacion) => {
     //url webservices
     let URL_API = urlWebServices.createReview;
     let req = JSON.stringify({
-        calificacion: calificacion
+
+        calificacion: calificacion,
+        usuario: usuario
+
     })
 
     try {
