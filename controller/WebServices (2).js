@@ -13,7 +13,7 @@ const urlWebServices = {
     createFavourite: URL_API+"/api/users/favorito",
     deleteFavourite: URL_API+"/api/users/favorito",
 
-    //Recetas
+    // Recetas
     getRecetas:URL_API + "/api/recetas",
     porNombre:URL_API+"/api/recetas/porNombre",
     porTipo:URL_API+"/api/recetas/porTipo",
@@ -26,8 +26,8 @@ const urlWebServices = {
     replaceReceta: URL_API + "/api/recetas/replace",
     updateReceta: URL_API + "/api/recetas",
 
-        // Reviews
-        createReview: URL_API + "/api/recetas/review",
+    // Reviews
+    createReview: URL_API + "/api/recetas/review",
 }
 
 export default urlWebServices;
