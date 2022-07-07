@@ -5,8 +5,8 @@ import { Menu } from '../context/MenuProvider';
 import Global from '../styles/Global';
 import * as ImagePicker from 'expo-image-picker';
 import ModalOpciones from '../components/ModalOpciones';
-import Axios from "axios";
-import Prueba from '../assets/menu.png'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { GetRecetaPorId as GetRecetaPorIdAPI } from '../controller/RecetaController';
 import ModalUnico from '../components/ModalUnico';
 import {
@@ -331,16 +331,28 @@ const Carga = ({ navigation }) => {
       let createRecipeInUserAPI = await CreateRecipeInUserAPI(usuario.email, createReceta.json.receta._id, createReceta.json.receta.nombreReceta, createReceta.json.receta.imagen, createReceta.json.receta.createdAt);
     }
     setRecetaGuardada({"id":''})
+
     navigation.navigate('Recetas')
+    await AsyncStorage.removeItem('recetaGuardada');
+
 
 }
+const traerRece=async()=>{
+ 
+
+    
+    const rece = await AsyncStorage.getItem('recetaGuardada');
+    const nuevasRecetas = JSON.parse(rece)
+
+    if(nuevasRecetas!==null){
+      setModal3(true)
+
+    }
+  }
   useEffect(()=> {
     (async ()=>{
- 
-      if(recetaGuardada.id!==''){
-        setModal3(true)
-  
-      }
+ traerRece()
+      
       
   })()
   

@@ -24,8 +24,15 @@ const PersonalizadasList = ({ navigation, route }) => {
   }
 
   const traerRece=async()=>{
-    const rece = await AsyncStorage.getItem('recetasGuardadas');
-    setRecetasPersonalizadas(rece);
+    const rece = await AsyncStorage.getItem('recetasPersonalizadas');
+    const nuevasRecetas = JSON.parse(rece)
+    console.log("esto trae del local:",nuevasRecetas)
+
+     if(nuevasRecetas!==null){
+       setRecetasPersonalizadas(nuevasRecetas);
+
+
+     }
 
 
   }

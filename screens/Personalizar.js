@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { StyleSheet, ActivityIndicator, FlatList, View, Text, TouchableOpacity, TextInput } from 'react-native';
 import Global from '../styles/Global';
 import { Menu } from '../context/MenuProvider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import IngredienteItem from '../components/IngredienteItem';
 import ModalUnico from '../components/ModalUnico';
@@ -55,7 +56,7 @@ const Personalizar = ({ navigation, route }) => {
 
 
   }
-  const guardarReceta = () => {
+  const guardarReceta = async() => {
 
     if (recetasPersonalizadas.length > 4) {
       setModalTitle('Ya llego al maximo de 5 recetas personalizadas')
@@ -63,7 +64,8 @@ const Personalizar = ({ navigation, route }) => {
     } else {
       item.ingredientes = ingredientesLista;
       item.cantidadPersonas = porciones;
-      guardarRecetaPersonalizada(item)
+     
+       await AsyncStorage.setItem('recetasPersonalizadas', JSON.stringify([...recetasPersonalizadas,item]));
       setModalTitle('Receta guardada correctamente')
 
       setModal(true)

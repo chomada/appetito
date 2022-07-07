@@ -16,7 +16,7 @@ import ModalUnico from '../components/ModalUnico';
 const Recetas = ({ navigation, route }) => {
 
 
-  const { setEnabled, recetas, usuario,recetasPersonalizadas,setRecetasPersonalizadas } = useContext(Menu);
+  const { setEnabled, recetas, usuario,recetasPersonalizadas,recetaGuardada } = useContext(Menu);
   const [antigua, setAntigua] = useState('Ordenar');
   const [modal, setModal] = useState(false);
 
@@ -80,23 +80,9 @@ const Recetas = ({ navigation, route }) => {
     }
   }
   
-  const guardarEnDispo = async () => {
-
-   
-      await AsyncStorage.setItem('recetasPersonalizadas', JSON.stringify(recetasPersonalizadas));
-     
-    
-  }
-
-  useEffect(()=> {
-    (async ()=>{
- 
-      guardarEnDispo();
-      
-  })()
   
-    
-  }, [])
+
+ 
 
   return (
 

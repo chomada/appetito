@@ -10,6 +10,8 @@ import { CreateReceta as CreateRecetaAPI,
 import { CreateRecipeInUser as CreateRecipeInUserAPI  } from '../controller/UsersController';
 import {useNetInfo} from "@react-native-community/netinfo";
 import ModalUnico from '../components/ModalUnico';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 const Paso1 = ({ navigation, route }) => {
@@ -49,7 +51,10 @@ const Paso1 = ({ navigation, route }) => {
     navigation.navigate('Recetas')
     setModal2(false)
   }
-  const subirMastarde = () => {
+  const subirMastarde = async() => {
+    console.log("q pasa")
+    await AsyncStorage.setItem('recetaGuardada', JSON.stringify({"usuarioId":usuario._id,"usuario":usuario.name,"nombreReceta":nombreReceta,"descripcion":descripcion,"imagen":imagen,"personas":personas,"minutos":minutos, "esfuerzo":esfuerzo,"tipo":tipo,"pasos":[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],"ingredientes":ingredientes}));
+
     setRecetaGuardada({"usuarioId":usuario._id,"usuario":usuario.name,"nombreReceta":nombreReceta,"descripcion":descripcion,"imagen":imagen,"personas":personas,"minutos":minutos, "esfuerzo":esfuerzo,"tipo":tipo,"pasos":[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],"ingredientes":ingredientes})
     setModalTitle2("Receta guardada exitosamente")
     setModal2(true)

@@ -1,9 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Button } from 'react-native';
 import Global from '../styles/Global';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Perfil = ({ route }) => {
 
+    const clearAllData=()=> {
+        AsyncStorage.getAllKeys()
+            .then(keys => AsyncStorage.multiRemove(keys))
+            .then(() => alert('success'));
+    }
+    
+    useEffect(() => {
+        (async ()=>{
+            clearAllData()
+       
+          
+      })()
+        
+       
+      }, [])
     const { user } = route.params;
     return (
         <View style={Global.container}>
