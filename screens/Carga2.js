@@ -69,10 +69,15 @@ const Carga = ({ navigation, route }) => {
 
   }
   useEffect(() => {
-    setDesc(descripcion);
+    (async ()=>{
+ 
+      setDesc(descripcion);
     setMinutos(tiempo);
     setEsfuerzo(dificultad);
     setPersonas(person);
+      
+  })()
+   
 
   }, [])
 

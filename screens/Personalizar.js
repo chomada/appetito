@@ -115,9 +115,13 @@ const Personalizar = ({ navigation, route }) => {
     return <IngredienteItem item={item} valida={true} eliminar={eliminar} edicion={edicion} />
   }
   useEffect(() => {
-
-    setIngredientesLista(item.ingredientes);
-    setPorciones(item.cantidadPersonas);
+    (async ()=>{
+ 
+      setIngredientesLista(item.ingredientes);
+      setPorciones(item.cantidadPersonas);
+      
+  })()
+ 
     
 
 

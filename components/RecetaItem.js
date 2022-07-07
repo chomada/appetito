@@ -14,7 +14,7 @@ const RecetaItem = ({ item, onSelected }) => {
       >
         <View style={{ flexDirection: "row" }}>
           <View style={{ width:250 }}> 
-          <Text style={styles.textRecetaFlat}>  {item.nombreReceta.replace(/^\w/, (c) => c.toUpperCase())}</Text>
+          <Text style={styles.textRecetaFlat2}>  {item.nombreReceta.replace(/^\w/, (c) => c.toUpperCase())}</Text>
           </View>
           <View style={{
              flexDirection: "row"
@@ -54,8 +54,14 @@ const styles = StyleSheet.create({
     //fontWeight: 'bold',
     fontSize: 22,
     marginTop:3
-    
- 
+           
+  },
+  textRecetaFlat2: {
+    color: 'black',
+    textAlign: 'left',
+    fontWeight: 'bold',
+    fontSize: 22,
+    marginTop:3
            
   }
 

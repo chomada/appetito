@@ -29,10 +29,14 @@ const guardarRecetaPersonalizada=(recetaPer)=>{
   setRecetasPersonalizadas([...recetasPersonalizadas,recetaPer])
 }
   useEffect(()=> {
-
-    if(enabled){
-      handleSubmit();
-    }
+    (async ()=>{
+ 
+      if(enabled){
+        handleSubmit();
+      }
+      
+  })()
+ 
   }, [enabled])
   // useEffect(()=> {
 

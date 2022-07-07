@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useRef } from 'react';
+import {  useState, useContext } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, KeyboardAvoidingView } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { Login as LoginAPI } from '../controller/LoginController'

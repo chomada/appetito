@@ -136,11 +136,16 @@ const Paso5 = ({ navigation, route }) => {
   }
 
   useEffect(() => {
-    if(pasos.length>4){
-      setPasoDesc(pasos[4].descripcion);
-    setImage(pasos[4].image);
-    setVideoImage(pasos[4].videoImage);
-    }
+    (async ()=>{
+ 
+      if(pasos.length>4){
+        setPasoDesc(pasos[4].descripcion);
+      setImage(pasos[4].image);
+      setVideoImage(pasos[4].videoImage);
+      }
+      
+  })()
+
   }, [])
   
   return (

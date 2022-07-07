@@ -1,6 +1,6 @@
 
 import { View, Text, Image, FlatList,ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native';
-import { useEffect, useState, useContext, useRef } from 'react';
+import {  useState } from 'react';
 
 import Global from '../styles/Global';
 import IngredienteItem from '../components/IngredienteItem';

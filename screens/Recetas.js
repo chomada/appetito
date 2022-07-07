@@ -89,7 +89,12 @@ const Recetas = ({ navigation, route }) => {
   }
 
   useEffect(()=> {
-    guardarEnDispo();
+    (async ()=>{
+ 
+      guardarEnDispo();
+      
+  })()
+  
     
   }, [])
 
@@ -97,8 +102,10 @@ const Recetas = ({ navigation, route }) => {
 
     <View style={Global.container}>
       <View style={styles.flexi2}>
+        <View styles={{width:50}}>
         <Text style={Global.menuTitle}>Destacadas</Text>
-        <View>
+        </View>
+        <View styles={{width:100}}>
          
 
           <TouchableOpacity onPress={toggleExpanded}>
@@ -123,7 +130,7 @@ const Recetas = ({ navigation, route }) => {
               </TouchableOpacity>
               <TouchableOpacity onPress={irRecetasPersonalizadas}>
                 <Text style={Global.btnMenu}>
-                  Recetas Personalizadas
+                  Recetas Personales
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleSignOut}>
@@ -203,7 +210,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   flexi2: {
-    margin: 'auto',
+    width:400,
     flexDirection: "row",
     height: 150
   },

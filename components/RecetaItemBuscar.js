@@ -50,11 +50,17 @@ const RecetaItemBuscar = ({ item, onSelected }) => {
   }
   useEffect(()=> {
 
-    if (usuario.favorites.find(elemento => elemento.nameReceta === item.nombreReceta)) {
-      setFav(true)
-    }else{
-      setFav(false)
-    }
+    (async ()=>{
+      if (usuario.favorites.find(elemento => elemento.nameReceta === item.nombreReceta)) {
+        setFav(true)
+      }else{
+        setFav(false)
+      }
+  
+   
+      
+  })()
+ 
   }, [agregarFav,sacarFav])
 
   return (

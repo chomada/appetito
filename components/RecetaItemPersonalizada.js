@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native'
 import Global from '../styles/Global';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { Menu } from '../context/MenuProvider';
 
 

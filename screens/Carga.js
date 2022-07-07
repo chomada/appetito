@@ -335,11 +335,15 @@ const Carga = ({ navigation }) => {
 
 }
   useEffect(()=> {
-
-    if(recetaGuardada.id!==''){
-      setModal3(true)
-
-    }
+    (async ()=>{
+ 
+      if(recetaGuardada.id!==''){
+        setModal3(true)
+  
+      }
+      
+  })()
+  
   }, [])
   return (
     <View style={Global.container2}>

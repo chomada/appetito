@@ -222,16 +222,11 @@ export default StyleSheet.create({
     color: 'black',
     textAlign: 'justify',
     fontWeight: 'bold',
-    fontSize:30,
-    marginRight:20,
+    fontSize:40,
+    marginLeft:5
   },
   picker: {
-    // marginVertical: 30,
-    // width: 300,
-    // padding: 10,
-    // borderWidth: 1,
-    // borderColor: "#fff",
-    // color:"#000"
+
 
     
     margin: 'auto',
@@ -242,7 +237,7 @@ export default StyleSheet.create({
     fontWeight: 'bold'
   },
   menuDesplegable:{
-    marginLeft:140,
+    marginLeft:100
 
   }
   

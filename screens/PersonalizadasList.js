@@ -30,7 +30,12 @@ const PersonalizadasList = ({ navigation, route }) => {
 
   }
   useEffect(() => {
-    traerRece()
+    (async ()=>{
+ 
+      traerRece()
+      
+  })()
+
     
 
   }, [])
