@@ -181,10 +181,10 @@ export const ReplaceReceta = async (idReceta,idUsuario,nombreUsuario, nombreRece
         dificultad: dificultad,
         tipo: tipo,
         validada: false,
-        reseñas: [],
         puntuacion: 0,
         pasos: pasos,
-        ingredientes: ingredientes
+        ingredientes: ingredientes,
+        reviews: []
     })
 
     try {
