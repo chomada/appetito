@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { StyleSheet, Text, TextInput, FlatList, TouchableOpacity, View, Image, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, ScrollView, TouchableOpacity, View, Image, Button } from 'react-native';
 import { Menu } from '../context/MenuProvider';
 import Global from '../styles/Global';
 import * as ImagePicker from 'expo-image-picker';
@@ -12,9 +12,13 @@ import {
 import { CreateRecipeInUser as CreateRecipeInUserAPI } from '../controller/UsersController'; import { useEffect } from 'react';
 import ModalUnico from '../components/ModalUnico';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNetInfo } from "@react-native-community/netinfo";
 
 
 const Paso3 = ({ navigation, route }) => {
+
+  const netInfo = useNetInfo();
+
   const { tipo, nombreReceta, imagen, ingredientes, descripcion, personas, minutos, esfuerzo,
     reemplazar, idReceta, editar, pasos, paso1, paso2 } = route.params;
 
@@ -205,7 +209,7 @@ const Paso3 = ({ navigation, route }) => {
 
 
     }
-
+    navigation.navigate('Recetas')
   }
 
   useEffect(() => {
@@ -222,14 +226,16 @@ const Paso3 = ({ navigation, route }) => {
   }, [])
 
   return (
-    <View style={Global.container2}>
+    <ScrollView style={Global.container2}>
       <Text style={styles.textBlack} >Escriba la preparacion:</Text>
       <TextInput style={[styles.textArea, Global.shadows]}
-
+multiline={true}
+numberOfLines={40}
+maxLength={900}
 
         value={pasoDesc}
         onChangeText={setPasoDesc}
-        placeholder="Maximo 200 caracteres"
+        placeholder="Maximo 900 caracteres"
         placeholderTextColor='#c7c6c6'            ></TextInput>
       <View style={styles.ingreMedidas} >
 
@@ -275,7 +281,7 @@ const Paso3 = ({ navigation, route }) => {
       <ModalOpciones modalVisible={modal} setModalVisible={setModal} titulo={modalTitle} texto1='Cancelar' texto2='Finalizar' funcion1={() => setModal(false)} funcion2={finalizarCarga} />
       <ModalUnico modalVisible={modal2} setModalVisible={setModal2} titulo={modalTitle2} texto1='Aceptar' funcion1={irMenu} />
 
-    </View >
+    </ScrollView >
   )
 }
 

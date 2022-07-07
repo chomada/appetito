@@ -62,7 +62,7 @@ export const CreateUser = async (email,alias) => {
     };
 }
 
-export const UpdateUser = async (alias, name, password, gender, birth) => {
+export const UpdateUser = async (alias, name, password, gender, birth,image) => {
     //url webservices
     let URL_API = urlWebServices.updateUser;
 
@@ -72,7 +72,8 @@ export const UpdateUser = async (alias, name, password, gender, birth) => {
         password: password,
         gender: gender,
         birth: birth,
-        enabled: true
+        enabled: true,
+        image:image
 
     })
     

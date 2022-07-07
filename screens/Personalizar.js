@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { StyleSheet, ActivityIndicator, FlatList, View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, ScrollView, FlatList, View, Text, TouchableOpacity, TextInput } from 'react-native';
 import Global from '../styles/Global';
 import { Menu } from '../context/MenuProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -164,7 +164,7 @@ const Personalizar = ({ navigation, route }) => {
       {personalizo === 'ingredientes' ?
         <View>
           <View style={{ marginTop: 10, marginLeft: 70, marginBot: 10, flexDirection: "row" }} >
-            <View><Text style={Global.textBlack}>CANTIDAD</Text>
+            <ScrollView><Text style={Global.textBlack}>CANTIDAD</Text>
               <TextInput style={[styles.btnPlaceHolder, Global.shadows]}
                 editable={editable}
                 keyboardType='numeric'
@@ -174,7 +174,7 @@ const Personalizar = ({ navigation, route }) => {
                 onChangeText={setCantidad}
                 placeholder="Ej 2"
                 placeholderTextColor='#c7c6c6'            ></TextInput>
-            </View>
+            </ScrollView>
             <TouchableOpacity
               style={[styles.btn2, Global.shadows]} onPress={agregarIngre}
 

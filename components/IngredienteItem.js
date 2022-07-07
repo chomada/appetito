@@ -9,7 +9,7 @@ const IngredienteItem = ({ item, eliminar,valida, valida2,edicion}) => {
   return (
 
     <View style={styles.vista}>
-      <View style={{ backgroundColor:'white', padding:8,width:250, flexDirection: "row" }}>
+      <View style={{ backgroundColor:'white', padding:2,width:250, flexDirection: "row" }}>
         <Text >■{' '}{item.cantidad}{' '}</Text>
 
         <Text >{item.unidad}{' de '}</Text>

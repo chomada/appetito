@@ -61,7 +61,6 @@ const RecetaItemFavoritos = ({ item, onSelected }) => {
       </TouchableOpacity>
     </View>
 
-
   )
 }
 

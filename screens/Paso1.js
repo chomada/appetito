@@ -1,14 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { StyleSheet, Modal, Text, TextInput, FlatList, TouchableOpacity, View, Image, Button } from 'react-native';
+import { StyleSheet, ScrollView, Text, TextInput, FlatList, TouchableOpacity, View, Image, Button } from 'react-native';
 import { Menu } from '../context/MenuProvider';
 import Global from '../styles/Global';
 import * as ImagePicker from 'expo-image-picker';
 import ModalOpciones from '../components/ModalOpciones';
-import { CreateReceta as CreateRecetaAPI,
-   ReplaceReceta as ReplaceRecetaAPI,
-   UpdateReceta as UpdateRecetaAPI} from '../controller/RecetaController';
-import { CreateRecipeInUser as CreateRecipeInUserAPI  } from '../controller/UsersController';
-import {useNetInfo} from "@react-native-community/netinfo";
+import {
+  CreateReceta as CreateRecetaAPI,
+  ReplaceReceta as ReplaceRecetaAPI,
+  UpdateReceta as UpdateRecetaAPI
+} from '../controller/RecetaController';
+import { CreateRecipeInUser as CreateRecipeInUserAPI } from '../controller/UsersController';
+import { useNetInfo } from "@react-native-community/netinfo";
 import ModalUnico from '../components/ModalUnico';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -18,9 +20,9 @@ const Paso1 = ({ navigation, route }) => {
 
   const netInfo = useNetInfo();
 
-  
-  const { tipo, nombreReceta, imagen, ingredientes, descripcion, personas, minutos, esfuerzo,reemplazar,idReceta,editar,pasos } = route.params;
-  const { usuario,setRecetaGuardada,recetaGuardada } = useContext(Menu);
+
+  const { tipo, nombreReceta, imagen, ingredientes, descripcion, personas, minutos, esfuerzo, reemplazar, idReceta, editar, pasos } = route.params;
+  const { usuario, setRecetaGuardada, recetaGuardada } = useContext(Menu);
   const [modal, setModal] = useState(false)
 
   const [pasoDesc, setPasoDesc] = useState('');
@@ -33,63 +35,63 @@ const Paso1 = ({ navigation, route }) => {
 
 
   const wifi = () => {
-    if(netInfo.type === "wifi"){
+    if (netInfo.type === "wifi") {
       setModalTitle('Desea finalizar la carga?')
       setModal(true)
-    }else {
+    } else {
       setModalTitle('No esta conectado a una Red WIFI, desea continuar?')
       setModal(true)
     }
   }
 
   const finalizar = () => {
-    if (pasoDesc === '' ) {
+    if (pasoDesc === '') {
       alert("Debe completar la descripcion")
-    }else{
+    } else {
       wifi();
 
     }
-  
+
   }
-  const irMenu =()=>{
+  const irMenu = () => {
     navigation.navigate('Recetas')
     setModal2(false)
   }
-  const subirMastarde = async() => {
+  const subirMastarde = async () => {
 
-    if (pasoDesc === '' ) {
+    if (pasoDesc === '') {
       alert("Debe completar la descripcion")
-    }else{
-      
-    await AsyncStorage.setItem('recetaGuardada', JSON.stringify({"usuarioId":usuario._id,"usuario":usuario.name,"nombreReceta":nombreReceta,"descripcion":descripcion,"imagen":imagen,"personas":personas,"minutos":minutos, "esfuerzo":esfuerzo,"tipo":tipo,"pasos":[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],"ingredientes":ingredientes}));
+    } else {
 
-    setRecetaGuardada({"usuarioId":usuario._id,"usuario":usuario.name,"nombreReceta":nombreReceta,"descripcion":descripcion,"imagen":imagen,"personas":personas,"minutos":minutos, "esfuerzo":esfuerzo,"tipo":tipo,"pasos":[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],"ingredientes":ingredientes})
-    setModalTitle2("Receta guardada exitosamente")
-    setModal2(true)
+      await AsyncStorage.setItem('recetaGuardada', JSON.stringify({ "usuarioId": usuario._id, "usuario": usuario.name, "nombreReceta": nombreReceta, "descripcion": descripcion, "imagen": imagen, "personas": personas, "minutos": minutos, "esfuerzo": esfuerzo, "tipo": tipo, "pasos": [{ "paso": 1, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], "ingredientes": ingredientes }));
+
+      setRecetaGuardada({ "usuarioId": usuario._id, "usuario": usuario.name, "nombreReceta": nombreReceta, "descripcion": descripcion, "imagen": imagen, "personas": personas, "minutos": minutos, "esfuerzo": esfuerzo, "tipo": tipo, "pasos": [{ "paso": 1, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], "ingredientes": ingredientes })
+      setModalTitle2("Receta guardada exitosamente")
+      setModal2(true)
     }
-  
+
   }
   const paso2 = () => {
-    if (pasoDesc === '' ) {
+    if (pasoDesc === '') {
       alert("Debe completar la descripcion")
-    }else{
-    navigation.navigate('Paso2', {
-      tipo: tipo,
-      nombreReceta: nombreReceta,
-      imagen: imagen,
-      ingredientes: ingredientes,
-      descripcion: descripcion,
-      personas: personas,
-      minutos: minutos,
-      esfuerzo: esfuerzo,
-      paso1:{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage},
-      pasos:pasos,
-      idReceta:idReceta,
-      editar:editar,
-      reemplazar:reemplazar
+    } else {
+      navigation.navigate('Paso2', {
+        tipo: tipo,
+        nombreReceta: nombreReceta,
+        imagen: imagen,
+        ingredientes: ingredientes,
+        descripcion: descripcion,
+        personas: personas,
+        minutos: minutos,
+        esfuerzo: esfuerzo,
+        paso1: { "paso": 1, "descripcion": pasoDesc, "image": image, "videoImage": videoImage },
+        pasos: pasos,
+        idReceta: idReceta,
+        editar: editar,
+        reemplazar: reemplazar
 
-    })
-  }
+      })
+    }
   }
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -158,80 +160,82 @@ const Paso1 = ({ navigation, route }) => {
       .catch(err => console.log({ err }))
 
   }
-  const finalizarCarga= async (event)=>{
+  const finalizarCarga = async (event) => {
 
-   
 
-      try {
-        if(reemplazar){
-          let replaceReceta = await ReplaceRecetaAPI(idReceta,usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
-          if (replaceReceta.rdo === 200) {
-          }
-          else {
-            alert("Error al crear receta intente nuevamente")
-          }
+
+    try {
+      if (reemplazar) {
+        let replaceReceta = await ReplaceRecetaAPI(idReceta, usuario._id, usuario.name, nombreReceta, descripcion, imagen, personas, minutos, esfuerzo, tipo, [{ "paso": 1, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], ingredientes);
+        if (replaceReceta.rdo === 200) {
         }
-         if(editar){
-          
-          let updateReceta = await UpdateRecetaAPI(idReceta,usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
-          if(updateReceta.rdo===200){
-            console.log("edicion correcta")
-          }else{
-            console.log("Error al editar intente nuevamente")
-          }
+        else {
+          alert("Error al crear receta intente nuevamente")
         }
-        if((editar==false) && (editar==false)) {
-        let createReceta = await CreateRecetaAPI(usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
+      }
+      if (editar) {
+
+        let updateReceta = await UpdateRecetaAPI(idReceta, usuario._id, usuario.name, nombreReceta, descripcion, imagen, personas, minutos, esfuerzo, tipo, [{ "paso": 1, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], ingredientes);
+        if (updateReceta.rdo === 200) {
+          console.log("edicion correcta")
+        } else {
+          console.log("Error al editar intente nuevamente")
+        }
+      }
+      if ((editar == false) && (editar == false)) {
+        let createReceta = await CreateRecetaAPI(usuario._id, usuario.name, nombreReceta, descripcion, imagen, personas, minutos, esfuerzo, tipo, [{ "paso": 1, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], ingredientes);
         if (createReceta.rdo === 200) {
-  
+
           let createRecipeInUserAPI = await CreateRecipeInUserAPI(usuario.email, createReceta.json.receta._id, createReceta.json.receta.nombreReceta, createReceta.json.receta.imagen, createReceta.json.receta.createdAt);
-          if(createRecipeInUserAPI.rdo===200){
+          if (createRecipeInUserAPI.rdo === 200) {
             console.log("usuario actualizado: ");
-          }else{
+          } else {
             alert("Error al actualizar intente nuevamente")
-  
+
           }
         }
         else {
           alert("Error al crear receta intente nuevamente")
         }
       }
-      } catch (error) {
-  
-  
-      }
-      navigation.navigate('Recetas')
-      
+    } catch (error) {
 
-    
 
-  
-    
     }
+    navigation.navigate('Recetas')
 
-    useEffect(() => {
-      (async ()=>{
- 
-        if(pasos.length>0){
 
-   
-          setPasoDesc(pasos[0].descripcion);
-          setImage(pasos[0].image);
-          setVideoImage(pasos[0].videoImage);
-        }
-        
+
+
+
+
+  }
+
+  useEffect(() => {
+    (async () => {
+
+      if (pasos.length > 0) {
+
+
+        setPasoDesc(pasos[0].descripcion);
+        setImage(pasos[0].image);
+        setVideoImage(pasos[0].videoImage);
+      }
+
     })()
-   
-    }, [])
+
+  }, [])
   return (
-    <View style={Global.container2}>
+    <ScrollView style={Global.container2}>
       <Text style={styles.textBlack} >Escriba la preparacion:</Text>
       <TextInput style={[styles.textArea, Global.shadows]}
-
+        multiline={true}
+        numberOfLines={40}
+        maxLength={900}
 
         value={pasoDesc}
         onChangeText={setPasoDesc}
-        placeholder="Maximo 200 caracteres"
+        placeholder="Maximo 900 caracteres"
         placeholderTextColor='#c7c6c6'            ></TextInput>
       <View style={styles.ingreMedidas} >
 
@@ -262,9 +266,9 @@ const Paso1 = ({ navigation, route }) => {
         <TouchableOpacity style={[styles.btn, Global.shadows]} onPress={subirMastarde}
 
 
-><Text style={Global.textBlack}>Guardar </Text>
+        ><Text style={Global.textBlack}>Guardar </Text>
 
-</TouchableOpacity>
+        </TouchableOpacity>
         <TouchableOpacity style={[styles.btn, Global.shadows]} onPress={finalizar}
 
 
@@ -274,11 +278,11 @@ const Paso1 = ({ navigation, route }) => {
 
 
       </View>
-      <ModalOpciones modalVisible={modal} setModalVisible={setModal} titulo={modalTitle} texto1='Cancelar'texto2 ='Finalizar' funcion1={() => setModal(false)} funcion2={finalizarCarga}/>
+      <ModalOpciones modalVisible={modal} setModalVisible={setModal} titulo={modalTitle} texto1='Cancelar' texto2='Finalizar' funcion1={() => setModal(false)} funcion2={finalizarCarga} />
       <ModalUnico modalVisible={modal2} setModalVisible={setModal2} titulo={modalTitle2} texto1='Aceptar' funcion1={irMenu} />
 
 
-    </View >
+    </ScrollView >
   )
 }
 

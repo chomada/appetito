@@ -11,12 +11,12 @@ import Global from '../styles/Global';
 
 import Collapsible from 'react-native-collapsible';
 import ModalUnico from '../components/ModalUnico';
-
+import { GetRecetas } from '../controller/RecetaController';
 
 const Recetas = ({ navigation, route }) => {
 
 
-  const { setEnabled, recetas, usuario,recetasPersonalizadas,recetaGuardada } = useContext(Menu);
+  const { setEnabled, recetas, usuario,recetasPersonalizadas,recetaGuardada,setRecetas } = useContext(Menu);
   const [antigua, setAntigua] = useState('Ordenar');
   const [modal, setModal] = useState(false);
 
@@ -59,8 +59,15 @@ const Recetas = ({ navigation, route }) => {
 
     setCollapsed(!collapsed);
   };
+  const handleSubmit = async (event) =>{
+ 
+    let getRecetas = await GetRecetas();
+    setRecetas(getRecetas.data.recetas)
+    
 
+}
   const ordenar = () => {
+    handleSubmit();
     if (antigua === 'Recientes ▲') {
       setAntigua('Antiguas ▼');
       function SortArray(x, y) {
@@ -82,14 +89,17 @@ const Recetas = ({ navigation, route }) => {
   
   
 
- 
+  
 
   return (
 
     <View style={Global.container}>
       <View style={styles.flexi2}>
         <View styles={{width:50}}>
+        <TouchableOpacity onPress={handleSubmit}>
         <Text style={Global.menuTitle}>Destacadas</Text>
+        </TouchableOpacity>
+
         </View>
         <View styles={{width:100}}>
          

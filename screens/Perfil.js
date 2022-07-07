@@ -26,7 +26,7 @@ const Perfil = ({ route }) => {
             <Image style={styles.image} source={{ uri: user.image }}
 
                 resizeMode="cover" />
-            <Text style={styles.btn}>{user.name}</Text>
+            <Text style={styles.btn}>{user.name.replace(/^\w/, (c) => c.toUpperCase())}</Text>
 
 
             <View style={styles.minPersonasDificultad} >
@@ -64,7 +64,7 @@ const Perfil = ({ route }) => {
             <Text style={styles.btn}>Alias: {user.alias}</Text>
             <Text style={styles.btn}>Rol: {user.role}</Text>
             <Text style={styles.btn}>Edad: {user.birth}</Text>
-            <Text style={styles.btn}>Género: {user.gender}</Text>
+            <Text style={styles.btn}>Género: {user.gender.replace(/^\w/, (c) => c.toUpperCase())}</Text>
 
 
         </View >

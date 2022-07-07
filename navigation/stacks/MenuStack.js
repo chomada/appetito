@@ -15,11 +15,33 @@ import Paso5 from "../../screens/Paso5";
 import Personalizar from "../../screens/Personalizar";
 import DetallePersonalizado from "../../screens/DetallePersonalizado";
 import PersonalizadasList from "../../screens/PersonalizadasList";
+import { useContext, useEffect } from "react";
+import { GetRecetas as GetRecetasAPI} from "../../controller/RecetaController";
+import { Menu } from "../../context/MenuProvider";
 
 
 const MenuStack = () => {
+  const { setRecetas } = useContext(Menu);
 
   const Stack = createNativeStackNavigator();
+  const handleSubmit = async (event) =>{
+ 
+    let getRecetas = await GetRecetasAPI();
+    setRecetas(getRecetas.data.recetas)
+    
+
+}
+
+  useEffect(()=> {
+    (async ()=>{
+ 
+      
+        handleSubmit();
+      
+      
+  })()
+ 
+  }, [])
 
   return (
 

@@ -49,7 +49,8 @@ const AuthCompletar = ({ navigation, route }) => {
     const [generoError, setGeneroError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [password2Error, setPassword2Error] = useState('');
-   
+    const [image, setImage] = useState(null);
+
     const [gender, setGender] = useState('');
     const [iniciarError, setIniciarError] = useState('');
 
@@ -66,14 +67,14 @@ const AuthCompletar = ({ navigation, route }) => {
 
 
     const endRegister = async (event) => {
-        if (nombre === "" && fecha === "" && password === "" && password2 === "" && genero === "") {
+        if (nombre === "" && fecha === "" && password === "" && password2 === "" && genero === "" && image==='') {
             setIniciarError('Debe completar los campos')
         }
         else if (nombreError === '' && fechaError === '' && generoError === '' && passwordError === '' && password2Error === '') {
             try {
 
 
-                let getCreate = await UpdateUserAPI(alias.toLowerCase(), nombre.toLowerCase(), password, genero, fecha);
+                let getCreate = await UpdateUserAPI(alias.toLowerCase(), nombre.toLowerCase(), password, genero, fecha, image);
                 alert("Usuario registrado satisfactoriamente")
                 navigation.navigate('Auth1')
 
@@ -144,7 +145,6 @@ const AuthCompletar = ({ navigation, route }) => {
 
     }
 
-    const [image, setImage] = useState(null);
 
     const pickImage = async () => {
       // No permissions request is necessary for launching the image library

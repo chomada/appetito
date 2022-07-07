@@ -25,9 +25,10 @@ import { CreateRecipeInUser as CreateRecipeInUserAPI  } from '../controller/User
 const Carga = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const listaMedidas = [
-    { label: 'Gramos', value: 'Gramos' },
-    { label: 'Kilos', value: 'Kilos' },
-    { label: 'Litros', value: 'Litros' },
+    { label: 'GR', value: 'GR' },
+    { label: 'KG', value: 'KG' },
+    { label: 'L', value: 'L' },
+    { label: 'Unidad/es', value: 'Unidad/es' },
 
   ];
   const { usuario,recetaGuardada,setRecetaGuardada } = useContext(Menu);
@@ -356,7 +357,7 @@ const traerRece=async()=>{
   
   }, [])
   return (
-    <View style={Global.container2}>
+    <ScrollView  style={Global.container2}>
       {valida ? <View style={{ height: 120, alignItems: 'center', justifyContent: 'center' }}>
         <Button title="Sube una foto de portada" onPress={pickImage} />
         {image && <Image source={{ uri: image }} style={{ width: 80, height: 80 }} />}
@@ -492,7 +493,6 @@ const traerRece=async()=>{
           <DropdownList
             title='Unidad'
             items={listaMedidas}
-            selectItem='Kilos'
             onChange={(value) => setMedida(value)}
             customStyleContainer={{
               containerLight: {
@@ -609,7 +609,7 @@ const traerRece=async()=>{
       <ModalUnico modalVisible={modal2} setModalVisible={setModal2} titulo={titleModal2}
         texto1='Aceptar' funcion1={() => setModal2(false)} />
 
-    </View >
+    </ScrollView  >
   )
 }
 

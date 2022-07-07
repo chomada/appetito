@@ -82,14 +82,15 @@ const Carga = ({ navigation, route }) => {
   }, [])
 
   return (
-    <View style={Global.container2}>
+    <ScrollView  w style={Global.container2}>
       <Text style={styles.textBlack} >Escriba la descripcion:</Text>
       <TextInput style={[styles.textArea, Global.shadows]}
-
-        maxLength={200}
+multiline={true}
+numberOfLines={40}
+        maxLength={900}
         value={desc}
         onChangeText={setDesc}
-        placeholder="Maximo 200 caracteres"
+        placeholder="Maximo 900 caracteres"
         placeholderTextColor='#c7c6c6'            ></TextInput>
 
       <View style={styles.ingreMedidas} >
@@ -212,7 +213,7 @@ const Carga = ({ navigation, route }) => {
       </View >
       <ModalUnico modalVisible={modal2} setModalVisible={setModal2} titulo={titleModal2}
         texto1='Aceptar' funcion1={() => setModal2(false)} />
-    </View >
+    </ScrollView  >
   )
 }
 
@@ -331,10 +332,10 @@ const styles = StyleSheet.create({
     margin: 16,
     backgroundColor: 'white',
     textAlign: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     borderRadius: 15,
-
-    alignItems: 'center',
+    
+    alignItems: 'stretch',
     fontWeight: 'bold'
 
   },
