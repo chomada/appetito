@@ -77,7 +77,7 @@ const Buscar = ({ navigation }) => {
 
     navigation.navigate('Buscar2', {
       opcionBusqueda: opcionBusqueda,
-      busqueda: busqueda.toLowerCase()
+      busqueda: busqueda
     })
     setBusqueda('');
     setOpcionBusqueda('');

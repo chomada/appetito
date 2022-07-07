@@ -27,8 +27,11 @@ const Carga = ({ navigation }) => {
   const listaMedidas = [
     { label: 'GR', value: 'GR' },
     { label: 'KG', value: 'KG' },
+    { label: 'ML', value: 'ML' },
     { label: 'L', value: 'L' },
     { label: 'Unidad/es', value: 'Unidad/es' },
+    { label: 'Cucharadas', value: 'Cucharadas' },
+    { label: 'Cucharaditas', value: 'Cucharaditas' },
 
   ];
   const { usuario,recetaGuardada,setRecetaGuardada } = useContext(Menu);
@@ -317,7 +320,7 @@ const Carga = ({ navigation }) => {
 
     let getRecetaId = await GetRecetaPorIdAPI(id);
     setIngredientesLista(getRecetaId.data.receta.ingredientes)
-    elegirTipo(getRecetaId.data.receta.tipo)
+    elegirTipo(getRecetaId.data.receta.tipo.replace(/^\w/, (c) => c.toUpperCase()))
     setDescripcion(getRecetaId.data.receta.descripcion)
     setTiempo(String(getRecetaId.data.receta.duracion))
     setDificultad(getRecetaId.data.receta.dificultad)
