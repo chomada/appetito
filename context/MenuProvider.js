@@ -16,6 +16,7 @@ const MenuProvider = ({children}) => {
  
     let getRecetas = await GetRecetasAPI();
     setRecetas(getRecetas.data.recetas)
+    
 
 }
 const borrado=(id)=>{

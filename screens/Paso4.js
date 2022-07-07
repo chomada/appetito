@@ -8,24 +8,68 @@ import { CreateReceta as CreateRecetaAPI,
   ReplaceReceta as ReplaceRecetaAPI,
   UpdateReceta as UpdateRecetaAPI} from '../controller/RecetaController';
 import { CreateRecipeInUser as CreateRecipeInUserAPI  } from '../controller/UsersController';import { useEffect } from 'react';
+import ModalUnico from '../components/ModalUnico';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 const Paso4 = ({ navigation, route }) => {
   const { tipo, nombreReceta, imagen, ingredientes, descripcion, personas, minutos, esfuerzo,
     reemplazar,idReceta,editar,pasos,paso1,paso2,paso3 } = route.params;
 
-  const { usuario } = useContext(Menu);
+  const { usuario,setRecetaGuardada } = useContext(Menu);
   const [modal, setModal] = useState(false)
+  const [modal2, setModal2] = useState(false)
 
   const [pasoDesc, setPasoDesc] = useState('');
   const [videoImage, setVideoImage] = useState(null);
   const [image, setImage] = useState(null);
+  const [modalTitle, setModalTitle] = useState('')
+
+  const [modalTitle2, setModalTitle2] = useState('')
 
 
+
+  const wifi = () => {
+    if (netInfo.type === "wifi") {
+      setModalTitle('Desea finalizar la carga?')
+      setModal(true)
+    } else {
+      setModalTitle('No esta conectado a una Red WIFI, desea continuar?')
+      setModal(true)
+    }
+  }
 
   const finalizar = () => {
-    setModal(true)   
-   
+    if (pasoDesc === '') {
+      alert("Debe completar la descripcion")
+    } else {
+      wifi();
+
+    }
+
+  }
+  const irMenu = () => {
+    navigation.navigate('Recetas')
+    setModal2(false)
+  }
+  const subirMastarde = async () => {
+
+    if (pasoDesc === '') {
+      alert("Debe completar la descripcion")
+    } else {
+
+      await AsyncStorage.setItem('recetaGuardada', JSON.stringify({ "usuarioId": usuario._id, "usuario": usuario.name, "nombreReceta": nombreReceta, "descripcion": descripcion, "imagen": imagen, "personas": personas, "minutos": minutos, "esfuerzo": esfuerzo, "tipo": tipo, "pasos": [paso1, paso2, paso3,{ "paso": 4, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], "ingredientes": ingredientes }));
+
+      setRecetaGuardada({ "usuarioId": usuario._id, "usuario": usuario.name, "nombreReceta": nombreReceta, "descripcion": descripcion, "imagen": imagen, "personas": personas, "minutos": minutos, "esfuerzo": esfuerzo, "tipo": tipo, "pasos": [paso1, paso2, paso3,{ "paso": 4, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], "ingredientes": ingredientes })
+      setModalTitle2("Receta guardada exitosamente")
+      setModal2(true)
+    }
+
   }
   const paso5 = () => {
+    if (pasoDesc === '' ) {
+      alert("Debe completar la descripcion")
+    }else{
     navigation.navigate('Paso5', {
       tipo: tipo,
       nombreReceta: nombreReceta,
@@ -45,6 +89,7 @@ const Paso4 = ({ navigation, route }) => {
       pasos:pasos
 
     })
+  }
   }
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -205,6 +250,12 @@ const Paso4 = ({ navigation, route }) => {
         ><Text style={Global.textBlack}>Agregar Paso</Text>
 
         </TouchableOpacity>
+        <TouchableOpacity style={[styles.btn, Global.shadows]} onPress={subirMastarde}
+
+
+><Text style={Global.textBlack}>Guardar </Text>
+
+</TouchableOpacity>
         <TouchableOpacity style={[styles.btn, Global.shadows]} onPress={finalizar}
 
 
@@ -214,7 +265,8 @@ const Paso4 = ({ navigation, route }) => {
 
 
       </View>
-      <ModalOpciones modalVisible={modal} setModalVisible={setModal} titulo='Desea finalizar la carga?' texto1='Cancelar'texto2 ='Finalizar' funcion1={() => setModal(false)} funcion2={finalizarCarga}/>
+      <ModalOpciones modalVisible={modal} setModalVisible={setModal} titulo={modalTitle} texto1='Cancelar' texto2='Finalizar' funcion1={() => setModal(false)} funcion2={finalizarCarga} />
+      <ModalUnico modalVisible={modal2} setModalVisible={setModal2} titulo={modalTitle2} texto1='Aceptar' funcion1={irMenu} />
 
     </View >
   )
@@ -303,7 +355,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   btn: {
-    width: 150,
+    width: 120,
 
     padding: 10,
     backgroundColor: 'white',

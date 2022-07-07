@@ -223,7 +223,7 @@ const Detalle = ({ navigation, route }) => {
             <View style={styles.btn}>
               <Image source={require("./../assets/head.png")} style={{ width: 20, height: 20 }}
                 resizeMode="cover" />
-              <Text style={styles.text}>{' '}{item.nombreUsuario}</Text>
+              <Text style={styles.text}>{' '}{item.nombreUsuario.replace(/^\w/, (c) => c.toUpperCase())}</Text>
             </View>
 
             <View style={styles.btn}>

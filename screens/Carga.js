@@ -337,10 +337,8 @@ const Carga = ({ navigation }) => {
 
 
 }
-const traerRece=async()=>{
- 
 
-    
+const traerRece=async()=>{
     const rece = await AsyncStorage.getItem('recetaGuardada');
     const nuevasRecetas = JSON.parse(rece)
 
@@ -359,9 +357,6 @@ const traerRece=async()=>{
   }, [])
   return (
     <View style={Global.container2}>
-
-
-
       {valida ? <View style={{ height: 120, alignItems: 'center', justifyContent: 'center' }}>
         <Button title="Sube una foto de portada" onPress={pickImage} />
         {image && <Image source={{ uri: image }} style={{ width: 80, height: 80 }} />}

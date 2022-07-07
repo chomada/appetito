@@ -1,16 +1,16 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native'
 import Global from '../styles/Global';
 import { DeleteFavourite as DeleteFavouriteAPI } from '../controller/FavoriteController';
-import { useContext,useEffect,useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Menu } from '../context/MenuProvider';
 import { CreateFavourite as CreateFavouriteAPI } from '../controller/FavoriteController';
 
 
 
 const RecetaItemBuscar = ({ item, onSelected }) => {
-  const { usuario,setUsuario } = useContext(Menu);
+  const { usuario, setUsuario } = useContext(Menu);
 
-  const [fav,setFav]=useState(false)
+  const [fav, setFav] = useState(false)
 
   const agregarFav = async (event) => {
 
@@ -20,8 +20,8 @@ const RecetaItemBuscar = ({ item, onSelected }) => {
       if (getFavourite.rdo === 200) {
         //cambiar color
         setUsuario(getFavourite.user)
-      } 
-       else {
+      }
+      else {
         alert("Error al agregar favorito intente nuevamente")
       }
 
@@ -48,62 +48,62 @@ const RecetaItemBuscar = ({ item, onSelected }) => {
 
 
   }
-  useEffect(()=> {
+  useEffect(() => {
 
-    (async ()=>{
+    (async () => {
       if (usuario.favorites.find(elemento => elemento.nameReceta === item.nombreReceta)) {
         setFav(true)
-      }else{
+      } else {
         setFav(false)
       }
-  
-   
-      
-  })()
- 
-  }, [agregarFav,sacarFav])
+
+
+
+    })()
+
+  }, [agregarFav, sacarFav])
 
   return (
-  
-    <View>{item.validada?
-  <View style={styles.DescIngrePre} >
+
+    <View>{item.validada ?
+      <View style={styles.DescIngrePre} >
 
 
 
-{fav?<TouchableOpacity style={Global.like} onPress={sacarFav} >
+        {fav ? <TouchableOpacity style={Global.like} onPress={sacarFav} >
           <Image source={require("./../assets/black.png")} style={{ width: 40, height: 40 }} />
-        </TouchableOpacity>:<TouchableOpacity style={Global.like} onPress={agregarFav} >
+        </TouchableOpacity> : <TouchableOpacity style={Global.like} onPress={agregarFav} >
           <Image source={require("./../assets/heart.png")} style={{ width: 40, height: 40 }} />
         </TouchableOpacity>}
 
 
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={() => onSelected(item)}
-    >
-      {item.nombreReceta.length > 10 ? <Text style={styles.textBlackTitle} >{item.nombreReceta.replace(/^\w/, (c) => c.toUpperCase()).slice(0, 10)}...</Text> :
-        <Text style={styles.textBlackTitle} >{item.nombreReceta.replace(/^\w/, (c) => c.toUpperCase())}</Text>}
-         <Text style={Global.textBlack2} >{item.nombreUsuario.slice(0, 10)}</Text>
-      <Text style={Global.textBlack2} >{item.createdAt.slice(0, 10)}</Text>
-    </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => onSelected(item)}
+        >
+          {item.nombreReceta.length > 10 ? <Text style={styles.textBlackTitle} >{item.nombreReceta.replace(/^\w/, (c) => c.toUpperCase()).slice(0, 10)}...</Text> :
+            <Text style={styles.textBlackTitle} >{item.nombreReceta.replace(/^\w/, (c) => c.toUpperCase())}</Text>}
+          <Text style={Global.textBlack2} >{item.nombreUsuario.slice(0, 10).replace(/^\w/, (c) => c.toUpperCase())}</Text>
+          <Text style={Global.textBlack2} >{item.createdAt.slice(0, 10)}</Text>
+        </TouchableOpacity>
 
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={() => onSelected(item)}
-    >
-      <View>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => onSelected(item)}
+        >
+          <View>
 
-        <Image style={styles.image} source={{ uri: item.imagen }}
+            <Image style={styles.image} source={{ uri: item.imagen }}
 
-          resizeMode="cover" />
-      </View>
+              resizeMode="cover" />
+          </View>
 
-    </TouchableOpacity>
-  </View>:<View >
-  <Text style={{textAlign:'center'}}>{item.nombreReceta.replace(/^\w/, (c) => c.toUpperCase())}</Text>
-   <Text style={styles.textBlackTitle}>receta pendiente de aprobacion</Text></View>
-}
-   </View>
+        </TouchableOpacity>
+      </View> : <View >
+        <Text style={{ textAlign: 'center' }}>{item.nombreReceta.replace(/^\w/, (c) => c.toUpperCase())}</Text>
+        <Text style={styles.textBlackTitle}>receta pendiente de aprobacion</Text></View>
+    }
+    </View>
 
   )
 }

@@ -4,29 +4,71 @@ import { Menu } from '../context/MenuProvider';
 import Global from '../styles/Global';
 import * as ImagePicker from 'expo-image-picker';
 import ModalOpciones from '../components/ModalOpciones';
-import { CreateReceta as CreateRecetaAPI,
+import {
+  CreateReceta as CreateRecetaAPI,
   ReplaceReceta as ReplaceRecetaAPI,
-  UpdateReceta as UpdateRecetaAPI} from '../controller/RecetaController';
-import { CreateRecipeInUser as CreateRecipeInUserAPI  } from '../controller/UsersController';import { useEffect } from 'react';
+  UpdateReceta as UpdateRecetaAPI
+} from '../controller/RecetaController';
+import { CreateRecipeInUser as CreateRecipeInUserAPI } from '../controller/UsersController'; import { useEffect } from 'react';
+import ModalUnico from '../components/ModalUnico';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Paso2 = ({ navigation, route }) => {
-  const { tipo, nombreReceta, imagen, ingredientes, descripcion, personas, minutos, esfuerzo,reemplazar,idReceta,editar,pasos,paso1 } = route.params;
-  const { usuario } = useContext(Menu);
+  const { tipo, nombreReceta, imagen, ingredientes, descripcion, personas, minutos, esfuerzo, reemplazar, idReceta, editar, pasos, paso1 } = route.params;
+  const { usuario, setRecetaGuardada } = useContext(Menu);
   const [modal, setModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
 
   const [pasoDesc, setPasoDesc] = useState('');
   const [videoImage, setVideoImage] = useState(null);
   const [image, setImage] = useState(null);
+  const [modalTitle, setModalTitle] = useState('')
+  const [modalTitle2, setModalTitle2] = useState('')
 
 
+
+
+  const wifi = () => {
+    if (netInfo.type === "wifi") {
+      setModalTitle('Desea finalizar la carga?')
+      setModal(true)
+    } else {
+      setModalTitle('No esta conectado a una Red WIFI, desea continuar?')
+      setModal(true)
+    }
+  }
 
   const finalizar = () => {
-    setModal(true);
+    if (pasoDesc === '') {
+      alert("Debe completar la descripcion")
+    } else {
+      wifi();
 
+    }
 
+  }
+  const irMenu = () => {
+    navigation.navigate('Recetas')
+    setModal2(false)
+  }
+  const subirMastarde = async () => {
+
+    if (pasoDesc === '') {
+      alert("Debe completar la descripcion")
+    } else {
+
+      await AsyncStorage.setItem('recetaGuardada', JSON.stringify({ "usuarioId": usuario._id, "usuario": usuario.name, "nombreReceta": nombreReceta, "descripcion": descripcion, "imagen": imagen, "personas": personas, "minutos": minutos, "esfuerzo": esfuerzo, "tipo": tipo, "pasos": [paso1, { "paso": 2, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], "ingredientes": ingredientes }));
+
+      setRecetaGuardada({ "usuarioId": usuario._id, "usuario": usuario.name, "nombreReceta": nombreReceta, "descripcion": descripcion, "imagen": imagen, "personas": personas, "minutos": minutos, "esfuerzo": esfuerzo, "tipo": tipo, "pasos": [paso1, { "paso": 2, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], "ingredientes": ingredientes })
+      setModalTitle2("Receta guardada exitosamente")
+      setModal2(true)
+    }
 
   }
   const paso3 = () => {
+    if (pasoDesc === '' ) {
+      alert("Debe completar la descripcion")
+    }else{
     navigation.navigate('Paso3', {
       tipo: tipo,
       nombreReceta: nombreReceta,
@@ -38,12 +80,13 @@ const Paso2 = ({ navigation, route }) => {
       esfuerzo: esfuerzo,
       paso1: paso1,
       paso2: { "paso": 2, "descripcion": pasoDesc, "image": image, "videoImage": videoImage },
-      pasos:pasos,
-      idReceta:idReceta,
-      editar:editar,
-      reemplazar:reemplazar
+      pasos: pasos,
+      idReceta: idReceta,
+      editar: editar,
+      reemplazar: reemplazar
 
     })
+  }
   }
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -114,11 +157,11 @@ const Paso2 = ({ navigation, route }) => {
 
   }
   const finalizarCarga = async (event) => {
-    
+
 
     try {
       if (reemplazar) {
-        let replaceReceta = await ReplaceRecetaAPI(idReceta, usuario._id, usuario.name, nombreReceta, descripcion, imagen, personas, minutos, esfuerzo, tipo, [paso1,{ "paso": 2, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], ingredientes);
+        let replaceReceta = await ReplaceRecetaAPI(idReceta, usuario._id, usuario.name, nombreReceta, descripcion, imagen, personas, minutos, esfuerzo, tipo, [paso1, { "paso": 2, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], ingredientes);
         if (replaceReceta.rdo === 200) {
           console.log("reemplazada: ", replaceReceta.json)
         }
@@ -128,7 +171,7 @@ const Paso2 = ({ navigation, route }) => {
       }
       if (editar) {
 
-        let updateReceta = await UpdateRecetaAPI(idReceta, usuario._id, usuario.name, nombreReceta, descripcion, imagen, personas, minutos, esfuerzo, tipo, [paso1,{ "paso": 2, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], ingredientes);
+        let updateReceta = await UpdateRecetaAPI(idReceta, usuario._id, usuario.name, nombreReceta, descripcion, imagen, personas, minutos, esfuerzo, tipo, [paso1, { "paso": 2, "descripcion": pasoDesc, "image": image, "videoImage": videoImage }], ingredientes);
         if (updateReceta.rdo === 200) {
           console.log("edicion correcta")
         } else {
@@ -153,7 +196,7 @@ const Paso2 = ({ navigation, route }) => {
         }
       }
     } catch (error) {
-      console.log("adentro de catch",error)
+      console.log("adentro de catch", error)
 
 
     }
@@ -161,68 +204,75 @@ const Paso2 = ({ navigation, route }) => {
   }
 
   useEffect(() => {
-    (async ()=>{
- 
-      if(pasos.length>1){
+    (async () => {
+
+      if (pasos.length > 1) {
         setPasoDesc(pasos[1].descripcion);
-      setImage(pasos[1].image);
-      setVideoImage(pasos[1].videoImage);
+        setImage(pasos[1].image);
+        setVideoImage(pasos[1].videoImage);
       }
-      
-  })()
+
+    })()
 
   }, [])
 
-return (
-  <View style={Global.container2}>
-    <Text style={styles.textBlack} >Escriba la preparacion:</Text>
-    <TextInput style={[styles.textArea, Global.shadows]}
+  return (
+    <View style={Global.container2}>
+      <Text style={styles.textBlack} >Escriba la preparacion:</Text>
+      <TextInput style={[styles.textArea, Global.shadows]}
 
 
-      value={pasoDesc}
-      onChangeText={setPasoDesc}
-      placeholder="Maximo 200 caracteres"
-      placeholderTextColor='#c7c6c6'            ></TextInput>
-    <View style={styles.ingreMedidas} >
+        value={pasoDesc}
+        onChangeText={setPasoDesc}
+        placeholder="Maximo 200 caracteres"
+        placeholderTextColor='#c7c6c6'            ></TextInput>
+      <View style={styles.ingreMedidas} >
 
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button title="Foto opcional" onPress={pickImage} />
-        {image && <Image source={{ uri: image }} style={{ width: 80, height: 80 }} />}
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Button title="Foto opcional" onPress={pickImage} />
+          {image && <Image source={{ uri: image }} style={{ width: 80, height: 80 }} />}
+        </View>
+
+
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Button title="Video opcional" onPress={pickVideo} />
+          {videoImage && <Image source={require("./../assets/video.png")} style={{ width: 80, height: 80 }} />}
+        </View>
+
+
+
       </View>
 
 
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button title="Video opcional" onPress={pickVideo} />
-        {videoImage && <Image source={require("./../assets/video.png")} style={{ width: 80, height: 80 }} />}
+      <View style={styles.ingreMedidas} >
+
+        <TouchableOpacity style={[styles.btn, Global.shadows]} onPress={paso3}
+
+
+        ><Text style={Global.textBlack}>Agregar Paso</Text>
+
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.btn, Global.shadows]} onPress={subirMastarde}
+
+
+        ><Text style={Global.textBlack}>Guardar </Text>
+
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.btn, Global.shadows]} onPress={finalizar}
+
+
+        ><Text style={Global.textBlack}>Finalizar</Text>
+
+        </TouchableOpacity>
+
+
       </View>
 
+      <ModalOpciones modalVisible={modal} setModalVisible={setModal} titulo={modalTitle} texto1='Cancelar' texto2='Finalizar' funcion1={() => setModal(false)} funcion2={finalizarCarga} />
+      <ModalUnico modalVisible={modal2} setModalVisible={setModal2} titulo={modalTitle2} texto1='Aceptar' funcion1={irMenu} />
 
-
-    </View>
-
-
-    <View style={styles.ingreMedidas} >
-
-      <TouchableOpacity style={[styles.btn, Global.shadows]} onPress={paso3}
-
-
-      ><Text style={Global.textBlack}>Agregar Paso</Text>
-
-      </TouchableOpacity>
-      <TouchableOpacity style={[styles.btn, Global.shadows]} onPress={finalizar}
-
-
-      ><Text style={Global.textBlack}>Finalizar</Text>
-
-      </TouchableOpacity>
-
-
-    </View>
-
-    <ModalOpciones modalVisible={modal} setModalVisible={setModal} titulo='Desea finalizar la carga?' texto1='Cancelar' texto2='Finalizar' funcion1={() => setModal(false)} funcion2={finalizarCarga} />
-
-  </View >
-)
+    </View >
+  )
 }
 
 export default Paso2;
@@ -309,7 +359,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   btn: {
-    width: 150,
+    width: 120,
 
     padding: 10,
     backgroundColor: 'white',

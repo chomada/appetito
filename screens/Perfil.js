@@ -5,21 +5,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Perfil = ({ route }) => {
 
-    const clearAllData=()=> {
-        AsyncStorage.getAllKeys()
-            .then(keys => AsyncStorage.multiRemove(keys))
-            .then(() => alert('success'));
-    }
+    // const clearAllData=()=> {
+    //     AsyncStorage.getAllKeys()
+    //         .then(keys => AsyncStorage.multiRemove(keys))
+    //         .then(() => alert('success'));
+    // }
     
-    useEffect(() => {
-        (async ()=>{
-            clearAllData()
+    // useEffect(() => {
+    //     (async ()=>{
+    //         clearAllData()
        
           
-      })()
+    //   })()
         
        
-      }, [])
+    //   }, [])
     const { user } = route.params;
     return (
         <View style={Global.container}>

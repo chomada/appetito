@@ -12,13 +12,13 @@ const PasosItem = ({ item }) => {
 
       <Text style={Global.textBlack}>Paso {item.paso}</Text>
 
-      <Text style={styles.cada}>{item.descripcion}{' '}</Text>
+      <Text style={styles.cada}>{item.descripcion.replace(/^\w/, (c) => c.toUpperCase())}{' '}</Text>
 
     </View>
     <View style={{ marginLeft: 85, marginRight: 85 }}>
-      <Image style={styles.image} source={{ uri: item.image }}
+      {item.image!==null?<Image style={styles.image} source={{ uri: item.image }}
 
-        resizeMode="cover" />
+resizeMode="cover" />:null}
     </View>
     {/* <View style={{ marginLeft: 85, marginRight: 85 }}>
       <Video style={styles.image} source={{ uri: item.videoImage }}

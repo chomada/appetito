@@ -43,8 +43,12 @@ const Paso1 = ({ navigation, route }) => {
   }
 
   const finalizar = () => {
-    wifi();
-    
+    if (pasoDesc === '' ) {
+      alert("Debe completar la descripcion")
+    }else{
+      wifi();
+
+    }
   
   }
   const irMenu =()=>{
@@ -52,15 +56,23 @@ const Paso1 = ({ navigation, route }) => {
     setModal2(false)
   }
   const subirMastarde = async() => {
-    console.log("q pasa")
+
+    if (pasoDesc === '' ) {
+      alert("Debe completar la descripcion")
+    }else{
+      
     await AsyncStorage.setItem('recetaGuardada', JSON.stringify({"usuarioId":usuario._id,"usuario":usuario.name,"nombreReceta":nombreReceta,"descripcion":descripcion,"imagen":imagen,"personas":personas,"minutos":minutos, "esfuerzo":esfuerzo,"tipo":tipo,"pasos":[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],"ingredientes":ingredientes}));
 
     setRecetaGuardada({"usuarioId":usuario._id,"usuario":usuario.name,"nombreReceta":nombreReceta,"descripcion":descripcion,"imagen":imagen,"personas":personas,"minutos":minutos, "esfuerzo":esfuerzo,"tipo":tipo,"pasos":[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],"ingredientes":ingredientes})
     setModalTitle2("Receta guardada exitosamente")
     setModal2(true)
+    }
   
   }
   const paso2 = () => {
+    if (pasoDesc === '' ) {
+      alert("Debe completar la descripcion")
+    }else{
     navigation.navigate('Paso2', {
       tipo: tipo,
       nombreReceta: nombreReceta,
@@ -77,6 +89,7 @@ const Paso1 = ({ navigation, route }) => {
       reemplazar:reemplazar
 
     })
+  }
   }
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -147,46 +160,52 @@ const Paso1 = ({ navigation, route }) => {
   }
   const finalizarCarga= async (event)=>{
 
-    try {
-      if(reemplazar){
-        let replaceReceta = await ReplaceRecetaAPI(idReceta,usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
-        if (replaceReceta.rdo === 200) {
+   
+
+      try {
+        if(reemplazar){
+          let replaceReceta = await ReplaceRecetaAPI(idReceta,usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
+          if (replaceReceta.rdo === 200) {
+          }
+          else {
+            alert("Error al crear receta intente nuevamente")
+          }
+        }
+         if(editar){
+          
+          let updateReceta = await UpdateRecetaAPI(idReceta,usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
+          if(updateReceta.rdo===200){
+            console.log("edicion correcta")
+          }else{
+            console.log("Error al editar intente nuevamente")
+          }
+        }
+        if((editar==false) && (editar==false)) {
+        let createReceta = await CreateRecetaAPI(usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
+        if (createReceta.rdo === 200) {
+  
+          let createRecipeInUserAPI = await CreateRecipeInUserAPI(usuario.email, createReceta.json.receta._id, createReceta.json.receta.nombreReceta, createReceta.json.receta.imagen, createReceta.json.receta.createdAt);
+          if(createRecipeInUserAPI.rdo===200){
+            console.log("usuario actualizado: ");
+          }else{
+            alert("Error al actualizar intente nuevamente")
+  
+          }
         }
         else {
           alert("Error al crear receta intente nuevamente")
         }
       }
-       if(editar){
-        
-        let updateReceta = await UpdateRecetaAPI(idReceta,usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
-        if(updateReceta.rdo===200){
-          console.log("edicion correcta")
-        }else{
-          console.log("Error al editar intente nuevamente")
-        }
+      } catch (error) {
+  
+  
       }
-      if((editar==false) && (editar==false)) {
-      let createReceta = await CreateRecetaAPI(usuario._id,usuario.name,nombreReceta,descripcion,imagen,personas,minutos, esfuerzo,tipo,[{"paso":1, "descripcion":pasoDesc, "image":image, "videoImage":videoImage}],ingredientes);
-      if (createReceta.rdo === 200) {
+      navigation.navigate('Recetas')
+      
 
-        let createRecipeInUserAPI = await CreateRecipeInUserAPI(usuario.email, createReceta.json.receta._id, createReceta.json.receta.nombreReceta, createReceta.json.receta.imagen, createReceta.json.receta.createdAt);
-        if(createRecipeInUserAPI.rdo===200){
-          console.log("usuario actualizado: ");
-        }else{
-          alert("Error al actualizar intente nuevamente")
-
-        }
-      }
-      else {
-        alert("Error al crear receta intente nuevamente")
-      }
-    }
-    } catch (error) {
-
-
-    }
-    navigation.navigate('Recetas')
     
+
+  
     
     }
 

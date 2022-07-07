@@ -6,7 +6,7 @@ import { Menu } from '../context/MenuProvider';
 
 
 const RecetaItemFavoritos = ({ item, onSelected }) => {
-  const { usuario,setUsuario } = useContext(Menu);
+  const { usuario, setUsuario } = useContext(Menu);
 
   const sacarFav = async (event) => {
     try {
@@ -26,40 +26,41 @@ const RecetaItemFavoritos = ({ item, onSelected }) => {
 
   }
   return (
-  
-  <View style={styles.DescIngrePre} >
+
+    <View style={styles.DescIngrePre} >
 
 
 
-    
-<TouchableOpacity style={Global.like} onPress={sacarFav} >
-      <Image source={require("./../assets/black.png")} style={{ width: 40, height: 40 }} />
-    </TouchableOpacity>
+
+      <TouchableOpacity style={Global.like} onPress={sacarFav} >
+        <Image source={require("./../assets/black.png")} style={{ width: 40, height: 40 }} />
+      </TouchableOpacity>
 
 
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={() => onSelected(item)}
-    >
-      {item.nameReceta.length>10?<Text style={styles.textBlackTitle} >{item.nameReceta.replace(/^\w/, (c) => c.toUpperCase()).slice(0,10)}...</Text>:
-      <Text style={styles.textBlackTitle} >{item.nameReceta.replace(/^\w/, (c) => c.toUpperCase())}</Text>}
-<Text style={Global.textBlack2} >{item.createdAt.slice(0,10)}</Text>
-    </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => onSelected(item)}
+      >
+        {item.nameReceta.length > 10 ? <Text style={styles.textBlackTitle} >{item.nameReceta.replace(/^\w/, (c) => c.toUpperCase()).slice(0, 10)}...</Text> :
+          <Text style={styles.textBlackTitle} >{item.nameReceta.replace(/^\w/, (c) => c.toUpperCase())}</Text>}
 
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={() => onSelected(item)}
-    >
-      <View>
+        <Text style={Global.textBlack2} >{item.createdAt.slice(0, 10)}</Text>
+      </TouchableOpacity>
 
-        <Image style={styles.image} source={{ uri: item.image }}
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => onSelected(item)}
+      >
+        <View>
 
-          resizeMode="cover" />
-      </View>
+          <Image style={styles.image} source={{ uri: item.image }}
 
-    </TouchableOpacity>
-  </View>
-  
+            resizeMode="cover" />
+        </View>
+
+      </TouchableOpacity>
+    </View>
+
 
   )
 }
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover'
   },
   DescIngrePre: {
-    margin:2,
+    margin: 2,
     padding: 5,
     width: 410,
     backgroundColor: 'white',
@@ -82,25 +83,25 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderRadius:15
+    borderRadius: 15
 
   },
   textBlackTitle: {
     color: 'black',
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize:20,
-    
+    fontSize: 20,
+
   },
-  like:{
-    padding:10,
-    paddingTop:25,
-    paddingBottom:25,
-    
-    
-    borderTopWidth:0,
-    borderLeftWidth:0,
-    borderBottomWidth:0,
+  like: {
+    padding: 10,
+    paddingTop: 25,
+    paddingBottom: 25,
+
+
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderBottomWidth: 0,
     borderRightWidth: 5,
-      },
+  },
 })

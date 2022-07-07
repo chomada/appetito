@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react'
 import { StyleSheet, ActivityIndicator, FlatList, View, Text, TouchableOpacity } from 'react-native';
 import Global from '../styles/Global';
 import { Menu } from '../context/MenuProvider';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RecetaItemPersonalizada from '../components/RecetaItemPersonalizada';
 
@@ -26,7 +25,6 @@ const PersonalizadasList = ({ navigation, route }) => {
   const traerRece=async()=>{
     const rece = await AsyncStorage.getItem('recetasPersonalizadas');
     const nuevasRecetas = JSON.parse(rece)
-    console.log("esto trae del local:",nuevasRecetas)
 
      if(nuevasRecetas!==null){
        setRecetasPersonalizadas(nuevasRecetas);

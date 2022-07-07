@@ -4,7 +4,6 @@ import urlWebServices from './WebServices.js';
 export const Login = async (userMail, pass) => {
     //url webservices
     let URL_API = urlWebServices.login;
-   // console.log(userMail, pass);
     let req;
 if(userMail.includes('@')){
      req = JSON.stringify({
