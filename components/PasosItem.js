@@ -1,6 +1,5 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
 import Global from '../styles/Global';
-// import Video from 'react-native-video';
 
 
 const PasosItem = ({ item }) => {
@@ -18,12 +17,17 @@ const PasosItem = ({ item }) => {
     <View style={{ marginLeft: 85, marginRight: 85 }}>
       {item.image!==null?<Image style={styles.image} source={{ uri: item.image }}
 
-resizeMode="cover" />:null}
+resizeMode="cover" />:<Image style={styles.image} source={require("./../assets/usuario.png")}
+
+resizeMode="cover" />}
     </View>
     {/* <View style={{ marginLeft: 85, marginRight: 85 }}>
+      {item.videoImage!==null?
       <Video style={styles.image} source={{ uri: item.videoImage }}
 
-        resizeMode="cover" />
+        resizeMode="cover" />:  <Video style={styles.image} source={require("./../assets/videoPrueba.mp4")}
+
+        resizeMode="cover" />}
     </View> */}
 
   </View>

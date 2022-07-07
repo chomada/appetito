@@ -156,10 +156,31 @@ const AuthCompletar = ({ navigation, route }) => {
       });
   
   
+      const uri = result.uri
+      const type = result.type || "file"
+      const name = result.fileName || "image.jpg"
+      const photo = { uri, type, name }
+  
       if (!result.cancelled) {
-        setImage(result.uri);
+  
+  
+        handleImage(photo)
       }
     };
+  
+    const handleImage = (photo) => {
+      const formData = new FormData();
+      formData.append("file", photo);
+      formData.append("upload_preset", "appetito");
+  
+      fetch("https://api.cloudinary.com/v1_1/chomada/image/upload", {
+        method: 'POST',
+        body: formData
+      }).then(res => res.json())
+        .then(res => setImage(res.secure_url))
+        .catch(err => console.log({ err }))
+  
+    }
     return (
         <View style={Global.container}>
                             <KeyboardAvoidingView behavior='position'>
