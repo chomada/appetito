@@ -1,36 +1,63 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
+import * as React from 'react';
+
+import { View, Text, Image, StyleSheet, Button } from 'react-native'
 import Global from '../styles/Global';
+import { Video, AVPlaybackStatus } from 'expo-av';
+//import Video from 'react-native-video';
 
 
 const PasosItem = ({ item }) => {
 
+  const video = React.useRef(null);
+  const [status, setStatus] = React.useState({});
 
-  return (<View >
-    <View style={styles.vista}>
+  return (
+    <View >
+      <View style={styles.vista}>
 
 
-      <Text style={Global.textBlack}>Paso {item.paso}</Text>
+        <Text style={Global.textBlack}>Paso {item.paso}</Text>
 
-      <Text style={styles.cada}>{item.descripcion.replace(/^\w/, (c) => c.toUpperCase())}{' '}</Text>
+
+        <View style={{ marginTop: 10 }}>
+          <Text style={styles.cada}>
+            {item.descripcion.replace(/^\w/, (c) => c.toUpperCase())}        </Text>
+        </View>
+
+      </View>
+      <View style={{ marginLeft: 85, marginRight: 85 }}>
+        {item.image !== null ? <Image style={styles.image} source={{ uri: item.image }}
+
+          resizeMode="cover" /> : null}
+      </View>
+
+    {item.videoImage!==null? <View><Video
+        ref={video}
+        style={{
+
+          height: 250,
+          resizeMode: 'cover'
+        }}
+        source={{
+          uri: item.videoImage
+        }}
+        useNativeControls
+        resizeMode="contain"
+        isLooping
+        onPlaybackStatusUpdate={status => setStatus(() => status)}
+      />
+      <View style={styles.buttons}>
+        <Button
+          title={status.isPlaying ? 'Pause' : 'Play'}
+          onPress={() =>
+            status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
+          }
+        />
+      </View></View>:null}
+     
+
 
     </View>
-    <View style={{ marginLeft: 85, marginRight: 85 }}>
-      {item.image!==null?<Image style={styles.image} source={{ uri: item.image }}
-
-resizeMode="cover" />:<Image style={styles.image} source={require("./../assets/usuario.png")}
-
-resizeMode="cover" />}
-    </View>
-    {/* <View style={{ marginLeft: 85, marginRight: 85 }}>
-      {item.videoImage!==null?
-      <Video style={styles.image} source={{ uri: item.videoImage }}
-
-        resizeMode="cover" />:  <Video style={styles.image} source={require("./../assets/videoPrueba.mp4")}
-
-        resizeMode="cover" />}
-    </View> */}
-
-  </View>
 
 
   )
@@ -52,10 +79,10 @@ const styles = StyleSheet.create({
   vista: {
     padding: 2,
     backgroundColor: 'white',
-    textAlign: 'left',
-    justifyContent: 'flex-start',
+    textAlign: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
-    width: 400,
+    width: 360,
     marginBottom: 20
   },
   cada: {

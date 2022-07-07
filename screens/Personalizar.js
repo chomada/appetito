@@ -84,6 +84,9 @@ const Personalizar = ({ navigation, route }) => {
 
   }
   const actCantidad = () => {
+    if (comen === '') {
+
+    } else {
 
     setPorciones(comen)
     const suma = comen / porciones
@@ -93,6 +96,7 @@ const Personalizar = ({ navigation, route }) => {
 
     setComen('')
   }
+}
   const multiplicar = () => {
 
     setPorciones(porciones * 2)   

@@ -48,6 +48,7 @@ const Auth2 = ({ navigation, route }) => {
           setAlias('');
 
         } else {
+          console.log(getCreate)
           alert("Registro iniciado correctamete. Revise su casilla de correo electrónico");
           navigation.navigate('Auth1');
           setEmail('');

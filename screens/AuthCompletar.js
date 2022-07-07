@@ -73,7 +73,7 @@ const AuthCompletar = ({ navigation, route }) => {
             try {
 
 
-                let getCreate = await UpdateUserAPI(alias, nombre.toLowerCase(), password, genero, fecha);
+                let getCreate = await UpdateUserAPI(alias.toLowerCase(), nombre.toLowerCase(), password, genero, fecha);
                 alert("Usuario registrado satisfactoriamente")
                 navigation.navigate('Auth1')
 
